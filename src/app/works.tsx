@@ -2,7 +2,7 @@
  * @Author: luckin 1832114807@qq.com
  * @Date: 2023-12-02 15:37:03
  * @LastEditors: luckin 1832114807@qq.com
- * @LastEditTime: 2023-12-02 19:06:32
+ * @LastEditTime: 2023-12-03 10:41:53
  * @FilePath: \my-100\src\app\works.tsx
  * @Description: 
  * 
@@ -12,6 +12,11 @@ export const info = [
   {
     name: 'Tic-Tac-Toe',
     date: '12/02',
+    draft: true,
+  },
+  {
+    name: 'test',
+    date: '12/03',
     draft: true,
   },
 ]
