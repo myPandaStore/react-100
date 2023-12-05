@@ -2,7 +2,7 @@
  * @Author: luckin 1832114807@qq.com
  * @Date: 2023-12-02 16:56:08
  * @LastEditors: luckin 1832114807@qq.com
- * @LastEditTime: 2023-12-03 15:17:18
+ * @LastEditTime: 2023-12-05 09:28:02
  * @FilePath: \my-100\src\app\001\page.tsx
  * @Description: 
  * 
@@ -12,7 +12,11 @@
 
 import { useState } from "react";
 
-function Square({ value, onSquareClick }: { value: any, onSquareClick: () => void }) {
+type SquareType = {
+    value: String | null,
+    onSquareClick: () => void
+}
+function Square({ value, onSquareClick }: SquareType) {
 
     return (
         <button
@@ -47,8 +51,12 @@ function calculateWinner(squares: null[] | String[]) {
     return null
 }
 
-
-function Board({ xIsNext, squares, onPlay }: { xIsNext: boolean, squares: null[] | String[], onPlay: (squares: any[]) => void }) {
+type BoardType = {
+    xIsNext: boolean,
+    squares: null[] | String[],
+    onPlay: (squares: (null | String)[]) => void
+}
+function Board({ xIsNext, squares, onPlay }: BoardType) {
     function handleClick(i: number) {
         if (calculateWinner(squares) || squares[i])
             return
@@ -59,9 +67,9 @@ function Board({ xIsNext, squares, onPlay }: { xIsNext: boolean, squares: null[]
 
     const winner = calculateWinner(squares);
     let status;
-    winner ? 
+    winner ?
         status = "Winner: " + winner
-         : status = "Next player: " + (xIsNext ? "X" : "O");
+        : status = "Next player: " + (xIsNext ? "X" : "O");
 
     return (
         <div className="w-1/2 h-1/2 m-auto">
