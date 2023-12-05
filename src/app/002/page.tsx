@@ -2,7 +2,7 @@
  * @Author: luckin 1832114807@qq.com
  * @Date: 2023-12-02 16:59:04
  * @LastEditors: luckin 1832114807@qq.com
- * @LastEditTime: 2023-12-04 20:42:15
+ * @LastEditTime: 2023-12-05 09:19:55
  * @FilePath: \my-100\src\app\002\page.tsx
  * @Description: 
  * 
@@ -10,12 +10,29 @@
  */
 'use client'
 
-function SearchBar() {
+import { useState } from "react"
+
+type SearchBarType = {
+  filterText: string
+  inStockOnly: boolean
+  onFilterTextChange: (filterText: string) => void
+  onInStockOnlyChange: (inStockOnly: boolean) => void
+}
+
+function SearchBar({ filterText, inStockOnly, onFilterTextChange, onInStockOnlyChange }: SearchBarType) {
   return (
     <form action="">
-      <input className="block border-2 rounded-sm" type="text" placeholder="Search..." />
+      <input
+        className="block border-2 rounded-sm"
+        type="text"
+        placeholder="Search..."
+        value={filterText}
+        onChange={(e) => onFilterTextChange(e.target.value)} />
       <label htmlFor="">
-        <input type="checkbox" />
+        <input
+          type="checkbox"
+          checked={inStockOnly}
+          onChange={e => onInStockOnlyChange(e.target.checked)} />
         <span>Only show products in stock</span>
       </label>
     </form>
@@ -23,15 +40,12 @@ function SearchBar() {
 }
 
 function ProductItemRow({ product }: { product: ProductItem }) {
-  const isLast = product.name === PRODUCTS[PRODUCTS.length - 1].name ||
-    product.name === PRODUCTS[2].name
-  const computedNameClass = `${isLast ? 'text-red-600 pb-10' : ''}`
-  const computedPriceClass = `${isLast ? 'pb-10' : ''}`
+  const stockedClass = product.stocked ? 'text-red-500' : 'text-green-500'
 
   return (
     <tr>
-      <td className={computedNameClass}>{product.name}</td>
-      <td className={computedPriceClass}>{product.price}</td>
+      <td className={stockedClass}>{product.name}</td>
+      <td >{product.price}</td>
     </tr>
   )
 }
@@ -46,11 +60,22 @@ function ProductCategoryRow({ category }: { category: string }) {
   )
 }
 
-function ProductTable({ products }: { products: ProductItem[] }) {
+type ProductTableType = {
+  products: ProductItem[],
+  filterText: string,
+  inStockOnly: boolean
+}
+function ProductTable({ products, filterText, inStockOnly }: ProductTableType) {
   const rows: any[] = []
   let lastCategoryName: string | null = null
 
   products.map((product) => {
+    if (product.name.toLowerCase().indexOf(filterText.toLowerCase()) === -1) {
+      return
+    }
+    if (inStockOnly && !product.stocked) {
+      return
+    }
     if (product.category !== lastCategoryName) {
       rows.push(<ProductCategoryRow category={product.category} key={product.category} />)
     }
@@ -79,12 +104,22 @@ type ProductItem = {
   stocked: boolean;
   name: string;
 }
+function FilterableProductTable({ products }: { products: ProductItem[] }) {
+  const [filterText, setFilterText] = useState('')
+  const [inStockOnly, setInStockOnly] = useState(false)
 
-function FilterTableProductTable({ products }: { products: ProductItem[] }) {
   return (
     <div className="w-400px m-auto bg-white rounded-xl p-10">
-      <SearchBar />
-      <ProductTable products={products} />
+      <SearchBar
+        filterText={filterText}
+        inStockOnly={inStockOnly}
+        onFilterTextChange={setFilterText}
+        onInStockOnlyChange={setInStockOnly} />
+      <ProductTable
+        products={products}
+        filterText={filterText}
+        inStockOnly={inStockOnly}
+      />
     </div>
 
   )
@@ -100,5 +135,5 @@ const PRODUCTS = [
 ];
 
 export default function App() {
-  return <FilterTableProductTable products={PRODUCTS} />
+  return <FilterableProductTable products={PRODUCTS} />
 }
