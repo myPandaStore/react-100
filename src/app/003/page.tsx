@@ -2,7 +2,7 @@
  * @Author: luckin 1832114807@qq.com
  * @Date: 2023-12-11 17:45:52
  * @LastEditors: luckin 1832114807@qq.com
- * @LastEditTime: 2023-12-13 09:05:28
+ * @LastEditTime: 2023-12-15 17:10:42
  * @FilePath: \react-100\src\app\003\page.tsx
  * @Description: 
  * 
@@ -10,18 +10,32 @@
  */
 "use client"
 import { useEffect, useRef } from 'react'
-import { Engine, Render, Bodies, World, Runner } from 'matter-js'
+import { Engine, Render, Bodies, World, } from 'matter-js'
 
-function noop() {
+function noop(): void {
     console.log('noop')
 }
+
 const f = {
     add: noop
 }
 
+
 export default function Mass() {
     const canvasRef = useRef<any>()
     const engine = useRef(Engine.create())
+
+    f.add = () => {
+        console.log('f.add')
+        const boxA = Bodies.rectangle(180, -40, 80, 80, { render: wireFrame })
+        World.add(engine.current.world, [boxA])
+    }
+
+    const wireFrame = {
+        fillStyle: 'transparent',
+        strokeStyle: 'black',
+        lineWidth: 1,
+    }
 
     useEffect(() => {
         const render = Render.create({
@@ -35,12 +49,8 @@ export default function Mass() {
             }
         })
 
-        const wireFrame = {
-            fillStyle: 'transparent',
-            strokeStyle: 'black',
-            lineWidth: 1,
-        }
-        const ground = Bodies.rectangle(0, 400, 400, 50,
+
+        const ground = Bodies.rectangle(400, 200, 410, 50,
             { isStatic: true, render: wireFrame },
         )
 
@@ -48,34 +58,26 @@ export default function Mass() {
             ground
         ])
 
-        f.add = () => {
-            const boxA = Bodies.rectangle(180, -40, 80, 80, { render: wireFrame })
-            World.add(engine.current.world, [boxA])
-        }
 
         f.add()
 
         Engine.run(engine.current)
         Render.run(render)
-    
+
         return () => {
-          Render.stop(render)
-          World.clear(engine.current.world,true)
-          Engine.clear(engine.current)
-          render.canvas.remove()
-        //   render.canvas = null
-        //   render.context = null
-          render.textures = {}
+            Render.stop(render)
+            World.clear(engine.current.world, true)
+            Engine.clear(engine.current)
+            render.canvas.remove()
+            render.textures = {}
         }
     }, [])
-
-
 
 
     return (
         <div
             onClick={f.add}
-            ref={canvasRef} className='flex justify-center items-center'
+            ref={canvasRef} className='w-full flex justify-center items-center'
         >
         </div>
     )
