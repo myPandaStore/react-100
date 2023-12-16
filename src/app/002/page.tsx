@@ -2,14 +2,15 @@
  * @Author: luckin 1832114807@qq.com
  * @Date: 2023-12-02 16:59:04
  * @LastEditors: luckin 1832114807@qq.com
- * @LastEditTime: 2023-12-12 19:54:02
- * @FilePath: \my-100\src\app\002\page.tsx
+ * @LastEditTime: 2023-12-16 15:51:58
+ * @FilePath: \react-100\src\app\002\page.tsx
  * @Description: 
  * 
  * Copyright (c) 2023 by ${git_name_email}, All Rights Reserved. 
  */
 'use client'
 import { useState } from "react"
+import Page from '../components/paper'
 
 type SearchBarType = {
   filterText: string
@@ -108,7 +109,7 @@ function FilterableProductTable({ products }: { products: ProductItem[] }) {
   const [inStockOnly, setInStockOnly] = useState(false)
 
   return (
-    <div className="w-400px m-auto bg-white rounded-xl p-10">
+    <div className="w-96 m-auto bg-white rounded-xl p-10">
       <SearchBar
         filterText={filterText}
         inStockOnly={inStockOnly}
@@ -133,6 +134,9 @@ const PRODUCTS = [
   { category: "Vegetables", price: "$1", stocked: true, name: "Peas" }
 ];
 
+
 export default function App() {
-  return <FilterableProductTable products={PRODUCTS} />
+  return (
+    <Page slot={FilterableProductTable({ products: PRODUCTS })} />
+  )
 }

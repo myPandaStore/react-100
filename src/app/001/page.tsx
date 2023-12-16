@@ -2,8 +2,8 @@
  * @Author: luckin 1832114807@qq.com
  * @Date: 2023-12-02 16:56:08
  * @LastEditors: luckin 1832114807@qq.com
- * @LastEditTime: 2023-12-05 09:28:02
- * @FilePath: \my-100\src\app\001\page.tsx
+ * @LastEditTime: 2023-12-16 15:50:20
+ * @FilePath: \react-100\src\app\001\page.tsx
  * @Description: 
  * 
  * Copyright (c) 2023 by ${git_name_email}, All Rights Reserved. 
@@ -11,6 +11,8 @@
 'use client'
 
 import { useState } from "react";
+import Page from '../components/paper'
+
 
 type SquareType = {
     value: String | null,
@@ -90,7 +92,7 @@ function Board({ xIsNext, squares, onPlay }: BoardType) {
     );
 }
 
-export default function Game() {
+function Game() {
     const [history, setHistory] = useState([Array(9).fill(null)])
     const [currentMove, setCurrentMove] = useState(0)
     const currentSquares = history[currentMove];
@@ -127,5 +129,11 @@ export default function Game() {
                 {moves}
             </ol>
         </div>
+    )
+}
+
+export default function App() {
+    return (
+        <Page slot={Game()} />
     )
 }
