@@ -2,7 +2,7 @@
  * @Author: luckin 1832114807@qq.com
  * @Date: 2023-12-11 17:45:52
  * @LastEditors: luckin 1832114807@qq.com
- * @LastEditTime: 2023-12-15 20:43:51
+ * @LastEditTime: 2023-12-16 08:48:10
  * @FilePath: \react-100\src\app\003\page.tsx
  * @Description: 
  * 
@@ -22,6 +22,7 @@ const f = {
 }
 
 export default function App() {
+
     return (
         <Page />
     )
