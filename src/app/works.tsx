@@ -24,6 +24,9 @@ export const info = [
     date: '12/12',
     draft: true,
   },
+  {
+    
+  }
 ]
 
 export const works = info.map((info, idx) => {

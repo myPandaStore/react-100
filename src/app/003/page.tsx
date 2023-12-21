@@ -11,7 +11,7 @@
 "use client"
 import { useEffect, useRef } from 'react'
 import { Engine, Render, Bodies, World, } from 'matter-js'
-import Page from '../components/paper'
+import Paper from '../components/paper'
 
 function noop(): void {
     console.log('noop')
@@ -24,7 +24,10 @@ const f = {
 export default function App() {
 
     return (
-        <Page slot={Mass()} />
+        // <Page slot={Mass()} />
+        <Paper>
+            <Mass />
+        </Paper>
     )
 }
 

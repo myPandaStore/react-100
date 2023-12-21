@@ -2,7 +2,7 @@
  * @Author: luckin 1832114807@qq.com
  * @Date: 2023-12-15 20:22:11
  * @LastEditors: luckin 1832114807@qq.com
- * @LastEditTime: 2023-12-16 16:40:06
+ * @LastEditTime: 2023-12-20 10:23:08
  * @FilePath: \react-100\src\app\components\paper.tsx
  * @Description: 
  * 
@@ -16,7 +16,7 @@ import { usePathname } from 'next/navigation';
 import { useState } from 'react';
 import { useTitle, } from '../Hooks/index';
 
-export default function Page(props: any) {
+export default function Paper({ children }: { children: JSX.Element }) {
     // init work pre next
     const pathname = usePathname();
     const no = pathname.split('/')[1]
@@ -24,17 +24,15 @@ export default function Page(props: any) {
     const work = works[index]
     const prev = works[index - 1]
     const next = works[index + 1]
-    const { slot } = props
+    // const { slot } = props
 
     // check hover
     const [isHovered, setIsHovered] = useState(false);
     function handleMouseEnter() {
-        console.log('enter')
         setIsHovered(true);
     }
     function handleMouseLeave() {
         setIsHovered(false);
-        console.log('leave')
     }
     let computedBottomNavClass = 'bottom-nav fixed bottom-0 pl-10 '
     const computedPrevAndNextClass = isHovered ?
@@ -47,7 +45,7 @@ export default function Page(props: any) {
 
     //TODO full screen
 
-  
+
     return (
         <div className="paper w-full">
             <div className="nav cursor-pointer pl-10">
@@ -88,7 +86,7 @@ export default function Page(props: any) {
                 <span className='opacity-20'>{work.date}</span>
             </div>
             <div className="slot">
-                {slot}
+                {children}
             </div>
         </div>
     )

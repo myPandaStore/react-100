@@ -2,7 +2,7 @@
  * @Author: luckin 1832114807@qq.com
  * @Date: 2023-12-02 16:59:04
  * @LastEditors: luckin 1832114807@qq.com
- * @LastEditTime: 2023-12-16 15:51:58
+ * @LastEditTime: 2023-12-20 10:14:58
  * @FilePath: \react-100\src\app\002\page.tsx
  * @Description: 
  * 
@@ -10,7 +10,7 @@
  */
 'use client'
 import { useState } from "react"
-import Page from '../components/paper'
+import Paper from '../components/paper'
 
 type SearchBarType = {
   filterText: string
@@ -137,6 +137,9 @@ const PRODUCTS = [
 
 export default function App() {
   return (
-    <Page slot={FilterableProductTable({ products: PRODUCTS })} />
+    // <Page slot={FilterableProductTable({ products: PRODUCTS })} />
+    <Paper>
+      <FilterableProductTable products={PRODUCTS} />
+    </Paper>
   )
 }
