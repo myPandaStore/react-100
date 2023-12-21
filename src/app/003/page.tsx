@@ -1,5 +1,15 @@
 /*
  * @Author: luckin 1832114807@qq.com
+ * @Date: 2023-12-11 17:49:34
+ * @LastEditors: luckin 1832114807@qq.com
+ * @LastEditTime: 2023-12-21 11:34:27
+ * @FilePath: \react-100\src\app\003\page.tsx
+ * @Description: 
+ * 
+ * Copyright (c) 2023 by ${git_name_email}, All Rights Reserved. 
+ */
+/*
+ * @Author: luckin 1832114807@qq.com
  * @Date: 2023-12-11 17:45:52
  * @LastEditors: luckin 1832114807@qq.com
  * @LastEditTime: 2023-12-16 10:57:01
@@ -12,10 +22,7 @@
 import { useEffect, useRef } from 'react'
 import { Engine, Render, Bodies, World, } from 'matter-js'
 import Paper from '../components/paper'
-
-function noop(): void {
-    console.log('noop')
-}
+import noop from '../utils/noop'
 
 const f = {
     add: noop

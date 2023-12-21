@@ -2,7 +2,7 @@
  * @Author: luckin 1832114807@qq.com
  * @Date: 2023-12-15 20:22:11
  * @LastEditors: luckin 1832114807@qq.com
- * @LastEditTime: 2023-12-20 10:23:08
+ * @LastEditTime: 2023-12-21 10:47:52
  * @FilePath: \react-100\src\app\components\paper.tsx
  * @Description: 
  * 
@@ -85,7 +85,7 @@ export default function Paper({ children }: { children: JSX.Element }) {
                 }
                 <span className='opacity-20'>{work.date}</span>
             </div>
-            <div className="slot">
+            <div className="slot flex justify-center">
                 {children}
             </div>
         </div>
