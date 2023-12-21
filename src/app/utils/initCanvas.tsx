@@ -2,13 +2,13 @@
  * @Author: luckin 1832114807@qq.com
  * @Date: 2023-12-21 11:32:22
  * @LastEditors: luckin 1832114807@qq.com
- * @LastEditTime: 2023-12-21 11:33:18
+ * @LastEditTime: 2023-12-21 14:34:01
  * @FilePath: \react-100\src\app\utils\initCanvas.tsx
  * @Description: 
  * 
  * Copyright (c) 2023 by ${git_name_email}, All Rights Reserved. 
  */
-export default function initCanvas(canvas: HTMLCanvasElement, width = 400, height = 400, _dpi?: number) {
+export default function initCanvas(canvas: HTMLCanvasElement, width = 400, height = 400, _dpi?: number):{ctx: CanvasRenderingContext2D, dpi: number} {
     const ctx = canvas.getContext('2d')!
   
     const dpr = window.devicePixelRatio || 1
