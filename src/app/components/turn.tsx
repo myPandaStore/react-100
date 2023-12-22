@@ -1,20 +1,28 @@
 /*
  * @Author: luckin 1832114807@qq.com
- * @Date: 2023-12-21 15:24:47
+ * @Date: 2023-12-22 09:58:50
  * @LastEditors: luckin 1832114807@qq.com
- * @LastEditTime: 2023-12-21 16:12:54
- * @FilePath: \react-100\src\app\components\toggle.tsx
+ * @LastEditTime: 2023-12-22 10:27:25
+ * @FilePath: \react-100\src\app\components\turn.tsx
  * @Description: 
  * 
  * Copyright (c) 2023 by ${git_name_email}, All Rights Reserved. 
  */
 import { useState } from 'react'
-export default function Toggle({ children, onToggle }: { children: JSX.Element, onToggle: () => void }) {
+
+type TurnType = {
+    opt: string,
+    options: string[],
+}
+export default function Turn({ opt, options }: TurnType) {
+    const index = options.indexOf(opt) || 0
+    const [idx, setIdx] = useState<number>(index)
+    opt = options[idx]
     const [active, setActive] = useState<boolean>(false)
     const [hover, setHover] = useState<boolean>(false)
 
     function handleClick() {
-        onToggle()
+        setIdx((idx + 1) % options.length)
         setActive(!active)
     }
     function handleMouseEnter() {
@@ -26,12 +34,12 @@ export default function Toggle({ children, onToggle }: { children: JSX.Element, 
 
     return (
         <div
-            style={{ cursor: 'pointer', opacity: active ? 1 : 0.2, textDecoration: hover ? 'underline' : 'none' }}
+            style={{ cursor: 'pointer', marginRight: '40px', opacity: active ? 1 : 0.2, textDecoration: hover ? 'underline' : 'none' }}
             onClick={handleClick}
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
         >
-            {children}
+            {opt}
         </div>
     )
 }
