@@ -2,7 +2,7 @@
  * @Author: luckin 1832114807@qq.com
  * @Date: 2023-12-11 17:49:34
  * @LastEditors: luckin 1832114807@qq.com
- * @LastEditTime: 2023-12-21 11:34:27
+ * @LastEditTime: 2023-12-23 10:59:31
  * @FilePath: \react-100\src\app\003\page.tsx
  * @Description: 
  * 
@@ -44,7 +44,6 @@ function Mass() {
     const engine = useRef(Engine.create())
 
     f.add = () => {
-        console.log('f.add')
         const boxA = Bodies.rectangle(180, -40, 80, 80, { render: wireFrame })
         World.add(engine.current.world, [boxA])
     }
@@ -81,7 +80,6 @@ function Mass() {
 
         Engine.run(engine.current)
         Render.run(render)
-
         return () => {
             Render.stop(render)
             World.clear(engine.current.world, true)

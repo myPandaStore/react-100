@@ -2,7 +2,7 @@
  * @Author: luckin 1832114807@qq.com
  * @Date: 2023-12-22 09:58:50
  * @LastEditors: luckin 1832114807@qq.com
- * @LastEditTime: 2023-12-22 10:27:25
+ * @LastEditTime: 2023-12-23 10:43:30
  * @FilePath: \react-100\src\app\components\turn.tsx
  * @Description: 
  * 
@@ -13,8 +13,9 @@ import { useState } from 'react'
 type TurnType = {
     opt: string,
     options: string[],
+    onTurn: () => void,
 }
-export default function Turn({ opt, options }: TurnType) {
+export default function Turn({ opt, options, onTurn }: TurnType) {
     const index = options.indexOf(opt) || 0
     const [idx, setIdx] = useState<number>(index)
     opt = options[idx]
@@ -24,6 +25,7 @@ export default function Turn({ opt, options }: TurnType) {
     function handleClick() {
         setIdx((idx + 1) % options.length)
         setActive(!active)
+        onTurn()
     }
     function handleMouseEnter() {
         setHover(!hover)
