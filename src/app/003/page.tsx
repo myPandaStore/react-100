@@ -2,7 +2,7 @@
  * @Author: luckin 1832114807@qq.com
  * @Date: 2023-12-11 17:49:34
  * @LastEditors: luckin 1832114807@qq.com
- * @LastEditTime: 2023-12-23 10:59:31
+ * @LastEditTime: 2023-12-24 10:15:41
  * @FilePath: \react-100\src\app\003\page.tsx
  * @Description: 
  * 
@@ -93,7 +93,7 @@ function Mass() {
     return (
         <div
             onClick={f.add}
-            ref={canvasRef} className='w-full flex justify-center items-center'
+            ref={canvasRef} className='flex justify-center items-center'
         >
         </div>
     )
