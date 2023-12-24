@@ -2,7 +2,7 @@
  * @Author: luckin 1832114807@qq.com
  * @Date: 2023-12-02 16:56:08
  * @LastEditors: luckin 1832114807@qq.com
- * @LastEditTime: 2023-12-21 10:26:57
+ * @LastEditTime: 2023-12-24 10:00:08
  * @FilePath: \react-100\src\app\001\page.tsx
  * @Description: 
  * 
@@ -18,12 +18,13 @@ type SquareType = {
     value: String | null,
     onSquareClick: () => void
 }
-function Square({ value, onSquareClick }: SquareType) {
+function Square({ value, onSquareClick, }: SquareType) {
 
     return (
         <button
             onClick={onSquareClick}
-            className="flex justify-center items-center w-20 h-20 m-2 p-2 border-2 border-red-500">
+            style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '80px', height: '80px', borderColor: 'red', borderWidth: '2px', margin: '1px', }}
+        >
             {value}
         </button>
     )
@@ -74,9 +75,11 @@ function Board({ xIsNext, squares, onPlay }: BoardType) {
         : status = "Next player: " + (xIsNext ? "X" : "O");
 
     return (
-        <div className="w-1/2 h-1/2 m-auto">
+        <div>
             <div className="">{status}</div>
-            <div className="grid grid-cols-3 gap-4 w-1/2 h-1/2 m-auto">
+            <div
+                style={{ minWidth: '264px' }}
+                className="grid grid-cols-3 m-auto">
                 <Square value={squares[0]} onSquareClick={() => handleClick(0)} />
                 <Square value={squares[1]} onSquareClick={() => handleClick(1)} />
                 <Square value={squares[2]} onSquareClick={() => handleClick(2)} />
@@ -115,15 +118,20 @@ function Game() {
         } else {
             description = `Go to Start`
         }
+
         return (
             <li key={move}>
-                <button onClick={() => jumpTo(move)}>{description}</button>
+                <button
+                    style={{ minWidth: '135px', textAlign: 'left' }}
+                    onClick={() => jumpTo(move)}>
+                    {description}
+                </button>
             </li>
         )
     })
 
     return (
-        <div className="w-full flex flex-col justify-center items-center">
+        <div className="w-full flex justify-center items-center">
             <Board xIsNext={xIsNext} squares={currentSquares} onPlay={handlePlay} />
             <ol>
                 {moves}
@@ -134,7 +142,6 @@ function Game() {
 
 export default function App() {
     return (
-        // <Page slot={Game()} />
         <Paper>
             <Game />
         </Paper>
