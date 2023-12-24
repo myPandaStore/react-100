@@ -2,7 +2,7 @@
  * @Author: luckin 1832114807@qq.com
  * @Date: 2023-12-22 09:58:50
  * @LastEditors: luckin 1832114807@qq.com
- * @LastEditTime: 2023-12-23 10:43:30
+ * @LastEditTime: 2023-12-24 16:16:46
  * @FilePath: \react-100\src\app\components\turn.tsx
  * @Description: 
  * 
@@ -36,7 +36,7 @@ export default function Turn({ opt, options, onTurn }: TurnType) {
 
     return (
         <div
-            style={{ cursor: 'pointer', marginRight: '40px', opacity: active ? 1 : 0.2, textDecoration: hover ? 'underline' : 'none' }}
+            style={{ width: '400px', cursor: 'pointer', opacity: active ? 1 : 0.2, textDecoration: hover ? 'underline' : 'none' }}
             onClick={handleClick}
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}

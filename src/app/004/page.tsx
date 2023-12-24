@@ -143,7 +143,7 @@ function Canvas() {
     }, [mode, showHexagon])
 
     return (
-        <>
+        <div className='flex flex-col items-center'>
             <canvas
                 style={{ width: '400px', height: '400px' }}
                 ref={canvasRef}
@@ -152,7 +152,7 @@ function Canvas() {
             <Toggle onToggle={handleToggleClick}>
                 <div>hex</div>
             </Toggle>
-        </>
+        </div>
 
     )
 }

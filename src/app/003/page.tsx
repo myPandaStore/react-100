@@ -2,7 +2,7 @@
  * @Author: luckin 1832114807@qq.com
  * @Date: 2023-12-11 17:49:34
  * @LastEditors: luckin 1832114807@qq.com
- * @LastEditTime: 2023-12-24 10:15:41
+ * @LastEditTime: 2023-12-24 16:03:37
  * @FilePath: \react-100\src\app\003\page.tsx
  * @Description: 
  * 
@@ -20,7 +20,7 @@
  */
 "use client"
 import { useEffect, useRef } from 'react'
-import { Engine, Render, Bodies, World, } from 'matter-js'
+import { Engine, Render, Bodies, World, Runner, } from 'matter-js'
 import Paper from '../components/paper'
 import noop from '../utils/noop'
 
@@ -78,7 +78,7 @@ function Mass() {
 
         f.add()
 
-        Engine.run(engine.current)
+        Runner.run(engine.current)
         Render.run(render)
         return () => {
             Render.stop(render)
