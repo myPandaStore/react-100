@@ -2,7 +2,7 @@
  * @Author: luckin 1832114807@qq.com
  * @Date: 2023-12-02 16:59:04
  * @LastEditors: luckin 1832114807@qq.com
- * @LastEditTime: 2023-12-20 10:14:58
+ * @LastEditTime: 2023-12-25 20:28:19
  * @FilePath: \react-100\src\app\002\page.tsx
  * @Description: 
  * 
@@ -11,6 +11,7 @@
 'use client'
 import { useState } from "react"
 import Paper from '../components/paper'
+import Note from "../components/note"
 
 type SearchBarType = {
   filterText: string
@@ -109,7 +110,7 @@ function FilterableProductTable({ products }: { products: ProductItem[] }) {
   const [inStockOnly, setInStockOnly] = useState(false)
 
   return (
-    <div className="w-96 m-auto bg-white rounded-xl p-10">
+    <div className="centered w-96 m-auto bg-white rounded-xl p-10">
       <SearchBar
         filterText={filterText}
         inStockOnly={inStockOnly}
@@ -137,9 +138,12 @@ const PRODUCTS = [
 
 export default function App() {
   return (
-    // <Page slot={FilterableProductTable({ products: PRODUCTS })} />
-    <Paper>
-      <FilterableProductTable products={PRODUCTS} />
-    </Paper>
+    <>
+      <Paper>
+        <FilterableProductTable products={PRODUCTS} />
+      </Paper>
+      <Note />
+    </>
+
   )
 }

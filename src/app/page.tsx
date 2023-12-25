@@ -2,24 +2,26 @@
  * @Author: luckin 1832114807@qq.com
  * @Date: 2023-11-30 20:05:53
  * @LastEditors: luckin 1832114807@qq.com
- * @LastEditTime: 2023-12-19 14:57:40
+ * @LastEditTime: 2023-12-25 19:35:01
  * @FilePath: \react-100\src\app\page.tsx
  * @Description: 
  * 
  * Copyright (c) 2023 by ${git_name_email}, All Rights Reserved. 
  */
 
-import Image from 'next/image'
-import { Router, Route, } from 'react-router'
 import Link from 'next/link'
-
 import { works } from './works'
 
 export default function Home() {
   const workItems = works.map(work =>
     <li className='cursor-pointer' key={work.no}>
       <Link href={work.no} className='link mr-4 block'>
-        {work.no}{work.name}
+        <span>
+          {work.no}
+        </span>
+        <b>
+          {work.name}
+        </b>
       </Link>
     </li>)
   return (

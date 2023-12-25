@@ -2,7 +2,7 @@
  * @Author: luckin 1832114807@qq.com
  * @Date: 2023-12-11 17:49:34
  * @LastEditors: luckin 1832114807@qq.com
- * @LastEditTime: 2023-12-24 16:03:37
+ * @LastEditTime: 2023-12-25 20:22:19
  * @FilePath: \react-100\src\app\003\page.tsx
  * @Description: 
  * 
@@ -22,6 +22,7 @@
 import { useEffect, useRef } from 'react'
 import { Engine, Render, Bodies, World, Runner, } from 'matter-js'
 import Paper from '../components/paper'
+import Note from '../components/note'
 import noop from '../utils/noop'
 
 const f = {
@@ -31,10 +32,14 @@ const f = {
 export default function App() {
 
     return (
-        // <Page slot={Mass()} />
-        <Paper>
-            <Mass />
-        </Paper>
+        <>
+            <Paper>
+                <Mass />
+            </Paper>
+            <Note>
+                <p>hands-on <a href="https://brm.io/matter-js" target='_blank'>Matter.js</a></p>
+            </Note>
+        </>
     )
 }
 
@@ -93,7 +98,7 @@ function Mass() {
     return (
         <div
             onClick={f.add}
-            ref={canvasRef} className='flex justify-center items-center'
+            ref={canvasRef} className='centered flex justify-center items-center'
         >
         </div>
     )

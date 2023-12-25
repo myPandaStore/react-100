@@ -2,7 +2,7 @@
  * @Author: luckin 1832114807@qq.com
  * @Date: 2023-12-02 16:56:08
  * @LastEditors: luckin 1832114807@qq.com
- * @LastEditTime: 2023-12-24 10:00:08
+ * @LastEditTime: 2023-12-25 20:30:33
  * @FilePath: \react-100\src\app\001\page.tsx
  * @Description: 
  * 
@@ -12,6 +12,7 @@
 
 import { useState } from "react";
 import Paper from '../components/paper'
+import Note from "../components/note";
 
 
 type SquareType = {
@@ -131,7 +132,7 @@ function Game() {
     })
 
     return (
-        <div className="w-full flex justify-center items-center">
+        <div className="centered w-full flex justify-center items-center">
             <Board xIsNext={xIsNext} squares={currentSquares} onPlay={handlePlay} />
             <ol>
                 {moves}
@@ -142,8 +143,11 @@ function Game() {
 
 export default function App() {
     return (
-        <Paper>
-            <Game />
-        </Paper>
+        <>
+            <Paper>
+                <Game />
+            </Paper>
+            <Note />
+        </>
     )
 }
