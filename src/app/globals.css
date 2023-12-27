@@ -42,3 +42,12 @@ body {
   left: 50%;
   transform: translate(-50%, -50%);
 }
+
+a[target='_blank']:not(.link) {
+  text-decoration: underline;
+  opacity: 0.75;
+  &:hover {
+    opacity: 1;
+    transition: all;
+  }
+}

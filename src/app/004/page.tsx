@@ -2,6 +2,7 @@
 import { useEffect, useRef, useState, } from 'react'
 import Paper from '../components/paper'
 import Toggle from '../components/toggle'
+import Note from '../components/note'
 import Turn from '../components/turn'
 import noop from '../utils/noop'
 import initCanvas from '../utils/initCanvas'
@@ -143,7 +144,7 @@ function Canvas() {
     }, [mode, showHexagon])
 
     return (
-        <div className='flex flex-col items-center'>
+        <div className='centered flex flex-col items-center'>
             <canvas
                 style={{ width: '400px', height: '400px' }}
                 ref={canvasRef}
@@ -160,8 +161,23 @@ function Canvas() {
 
 export default function Hex() {
     return (
-        <Paper>
-            <Canvas />
-        </Paper>
+        <>
+            <Paper>
+                <Canvas />
+            </Paper>
+            <Note>
+                <div>
+                    <p> inspired by
+                        <a className='underline ml-3' href='https://codepen.io/Manoylov/pen/dyorBVb' target='_blank'>this CodePen</a>
+                    </p>
+
+                    <br />
+                    <p> extend reading
+                        <a className='underline ml-3' href='https://www.redblobgames.com/grids/hexagons/' target='_blank'>Hexagonal Grids</a>
+                    </p>
+                </div>
+            </Note>
+        </>
+
     )
 }
