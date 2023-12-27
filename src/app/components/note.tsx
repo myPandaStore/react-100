@@ -20,6 +20,7 @@ export default function Note({ children = null }: { children?: JSX.Element | nul
                 <br />
                 <a
                     href={link}
+                    style={{fontSize: 'unset'}}
                     className="link">
                     source
                 </a>
