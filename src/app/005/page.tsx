@@ -2,7 +2,7 @@
  * @Author: luckin 1832114807@qq.com
  * @Date: 2023-12-27 09:29:07
  * @LastEditors: luckin 1832114807@qq.com
- * @LastEditTime: 2023-12-27 10:30:16
+ * @LastEditTime: 2023-12-28 09:21:15
  * @FilePath: \react-100\src\app\005\page.tsx
  * @Description: 
  * 
@@ -158,6 +158,9 @@ void main() {
 }
 `
     useEffect(() => {
+        if (!box.current)
+            return
+
         const scene = new THREE.Scene()
         const clock = new THREE.Clock()
         const camera = new THREE.PerspectiveCamera(75, 1, 0.1, 1000)
@@ -187,6 +190,8 @@ void main() {
         })
 
         return () => {
+            if (!box.current)
+                return
             box.current!.removeChild(renderer.domElement);
         }
     }, [fragmentShader, vertexShader])

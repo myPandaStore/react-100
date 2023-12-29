@@ -2,7 +2,7 @@
  * @Author: luckin 1832114807@qq.com
  * @Date: 2023-12-02 15:37:03
  * @LastEditors: luckin 1832114807@qq.com
- * @LastEditTime: 2023-12-27 09:32:11
+ * @LastEditTime: 2023-12-28 09:19:55
  * @FilePath: \react-100\src\app\works.tsx
  * @Description: 
  * 
@@ -31,7 +31,12 @@ export const info = [
   },
   {
     name: 'WaveBox',
-    date: '12/21',
+    date: '12/27',
+    draft: true,
+  },
+  {
+    name: 'DragBox',
+    date: '12/28',
     draft: true,
   }
 ]
