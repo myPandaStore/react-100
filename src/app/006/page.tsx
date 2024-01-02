@@ -2,7 +2,7 @@
  * @Author: luckin 1832114807@qq.com
  * @Date: 2023-12-28 09:18:25
  * @LastEditors: luckin 1832114807@qq.com
- * @LastEditTime: 2023-12-29 11:08:01
+ * @LastEditTime: 2024-01-02 21:04:13
  * @FilePath: \react-100\src\app\006\page.tsx
  * @Description: 
  * 
@@ -10,50 +10,53 @@
  */
 'use client'
 import { useRef, useMemo, useState } from 'react'
-import { useWindowSize } from '../Hooks'
-
+import { useWindowSize, useWindowPosition,useMouseInElement } from '../Hooks'
+import { useMouse } from 'ahooks';
 
 export default function DragBox() {
     const box = useRef<HTMLDivElement>(null)
-
+    // TODO: self mouse 
+    // temporary use ahooks to get mousePosition
+    // const mouse = useMouseInElement(box.current, { touch: true })
+    const mouse = useMouse(box.current)
+    console.log(mouse.elementX, mouse.elementY)
+    // drag
+    const [isDragging, setIsDragging] = useState(false)
+    const [draggingOffsets, setDraggingOffsets] = useState<any[]>([0, 0])
     function handleMouseDown(event: React.MouseEvent<HTMLDivElement>) {
         console.log("handleMouseDown", '==')
+        setDraggingOffsets([mouse.elementX, mouse.elementY])
+        setIsDragging(true)
     }
-
     function handleMouseUp() {
         console.log("handleMouseUp")
+        setIsDragging(false)
     }
 
-    //
+    // useWindowSize
     const BOX_SIZE = 400
     const { width, height } = useWindowSize()
-    console.log(width, height)
-    // const [width, setWidth] = useState<number>(0);
 
-    // window?.addEventListener('resize', () => {
-    //     // console.log('resize', width, height)
-    //     setWidth(window.innerWidth)
-    // })
-    // console.log(width, '==')
-
-    // const { screenLeft, screenTop } = useWindowPosition()
+    // useWindowPosition
+    const { screenLeft, screenTop } = useWindowPosition()
+    // console.log(screenLeft.current, screenTop.current)
+    // const screenLeft = useRef(0)
+    // const screenTop = useRef(0)
 
     // box size
-    // const boxX = ref((width.value - BOX_SIZE) / 2)
-    // const boxY = ref((height.value - BOX_SIZE) / 2)
-
+    const boxX = useRef((width - BOX_SIZE) / 2)
+    const boxY = useRef((height - BOX_SIZE) / 2)
 
     // inner class
-    const innerX = '100px'
-    const innerY = '100px'
-    // const innerX = useMemo(() => -(boxX.value + screenLeft.value), [boxX.value, screenLeft.value])
-    // const innerY = useMemo(() => -(boxY.value + screenTop.value), [boxY.value, screenTop.value])
+    const innerX = useMemo(() => -(boxX.current + screenLeft.current), [])
+    const innerY = useMemo(() => -(boxY.current + screenTop.current), [])
     const screenHeight = window.screen.height
     const screenWidth = window.screen.width
 
     return (
         <div
             ref={box}
+            className='box'
             onMouseDown={handleMouseDown}
             onTouchStart={handleMouseDown}
             onMouseUp={handleMouseUp}
