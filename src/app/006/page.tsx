@@ -2,7 +2,7 @@
  * @Author: luckin 1832114807@qq.com
  * @Date: 2023-12-28 09:18:25
  * @LastEditors: luckin 1832114807@qq.com
- * @LastEditTime: 2024-01-03 20:44:36
+ * @LastEditTime: 2024-01-03 21:13:03
  * @FilePath: \react-100\src\app\006\page.tsx
  * @Description: 
  * 
@@ -38,6 +38,7 @@ export default function DragBox() {
         setIsDragging(false)
     }
     if (isDragging) {
+        console.log(mouse.elementX, mouse.elementY)
         run()
     }
     const boxX = Math.min(Math.max(0, initBoxX.current - draggingOffsets[0]), width - BOX_SIZE)
