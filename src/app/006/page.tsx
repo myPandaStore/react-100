@@ -2,7 +2,7 @@
  * @Author: luckin 1832114807@qq.com
  * @Date: 2023-12-28 09:18:25
  * @LastEditors: luckin 1832114807@qq.com
- * @LastEditTime: 2024-01-02 21:04:13
+ * @LastEditTime: 2024-01-03 20:44:36
  * @FilePath: \react-100\src\app\006\page.tsx
  * @Description: 
  * 
@@ -10,55 +10,58 @@
  */
 'use client'
 import { useRef, useMemo, useState } from 'react'
-import { useWindowSize, useWindowPosition,useMouseInElement } from '../Hooks'
-import { useMouse } from 'ahooks';
+import { useWindowSize, useWindowPosition } from '../Hooks'
+import { useMouse, useThrottleFn } from 'ahooks';
 
 export default function DragBox() {
     const box = useRef<HTMLDivElement>(null)
-    // TODO: self mouse 
-    // temporary use ahooks to get mousePosition
-    // const mouse = useMouseInElement(box.current, { touch: true })
     const mouse = useMouse(box.current)
-    console.log(mouse.elementX, mouse.elementY)
+    const { width, height } = useWindowSize()
+    const { screenLeft, screenTop } = useWindowPosition()
+    const BOX_SIZE = 400
+    const initBoxX = useRef((width - BOX_SIZE) / 2)
+    const initBoxY = useRef((height - BOX_SIZE) / 2)
+    const { run } = useThrottleFn(
+        () => {
+            setDraggingOffsets([mouse.elementX, mouse.elementY])
+        },
+        { wait: 50 },
+    );
+
     // drag
     const [isDragging, setIsDragging] = useState(false)
     const [draggingOffsets, setDraggingOffsets] = useState<any[]>([0, 0])
     function handleMouseDown(event: React.MouseEvent<HTMLDivElement>) {
-        console.log("handleMouseDown", '==')
-        setDraggingOffsets([mouse.elementX, mouse.elementY])
         setIsDragging(true)
     }
     function handleMouseUp() {
-        console.log("handleMouseUp")
         setIsDragging(false)
     }
-
-    // useWindowSize
-    const BOX_SIZE = 400
-    const { width, height } = useWindowSize()
-
-    // useWindowPosition
-    const { screenLeft, screenTop } = useWindowPosition()
-    // console.log(screenLeft.current, screenTop.current)
-    // const screenLeft = useRef(0)
-    // const screenTop = useRef(0)
-
-    // box size
-    const boxX = useRef((width - BOX_SIZE) / 2)
-    const boxY = useRef((height - BOX_SIZE) / 2)
-
-    // inner class
-    const innerX = useMemo(() => -(boxX.current + screenLeft.current), [])
-    const innerY = useMemo(() => -(boxY.current + screenTop.current), [])
+    if (isDragging) {
+        run()
+    }
+    const boxX = Math.min(Math.max(0, initBoxX.current - draggingOffsets[0]), width - BOX_SIZE)
+    const boxY = Math.min(Math.max(0, initBoxY.current - draggingOffsets[1]), height - BOX_SIZE)
+    const innerX = -(boxX + screenLeft.current)
+    const innerY = -(boxY + screenTop.current)
     const screenHeight = window.screen.height
     const screenWidth = window.screen.width
 
     return (
         <div
             ref={box}
-            className='box'
+            className='box centered'
+            style={
+                {
+                    position: 'relative',
+                    backgroundColor: 'white',
+                    border: '1px solid black',
+                    width: BOX_SIZE,
+                    height: BOX_SIZE,
+                }
+            }
             onMouseDown={handleMouseDown}
-            onTouchStart={handleMouseDown}
+            onTouchStart={handleMouseUp}
             onMouseUp={handleMouseUp}
             onTouchEnd={handleMouseUp}
         >

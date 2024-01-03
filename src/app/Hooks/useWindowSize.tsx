@@ -2,7 +2,7 @@
  * @Author: luckin 1832114807@qq.com
  * @Date: 2023-12-29 10:39:42
  * @LastEditors: luckin 1832114807@qq.com
- * @LastEditTime: 2024-01-02 20:06:34
+ * @LastEditTime: 2024-01-03 20:18:45
  * @FilePath: \react-100\src\app\Hooks\useWindowSize.tsx
  * @Description: 
  * 
@@ -15,13 +15,14 @@ const isClient = typeof window !== "undefined";
 const defaultWindow = isClient ? window : void 0;
 
 
-export default function useWindowSize({ window = defaultWindow, initialWidth = 0, initialHeight = 0 } = {}) {
+export default function useWindowSize({ window: any = defaultWindow, initialWidth = window.innerWidth, initialHeight = window.innerHeight } = {}) {
     const [width, setWidth] = useState<number>(initialWidth);
     const [height, setHeight] = useState<number>(initialHeight);
+
     const update = () => {
         if (window) {
             setWidth(window.innerWidth);
-            setHeight(window.innerHeight) 
+            setHeight(window.innerHeight)
         }
     };
     // TODO: complete tryOnMounted

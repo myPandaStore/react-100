@@ -2,7 +2,7 @@
  * @Author: luckin 1832114807@qq.com
  * @Date: 2024-01-02 19:32:01
  * @LastEditors: luckin 1832114807@qq.com
- * @LastEditTime: 2024-01-02 20:13:48
+ * @LastEditTime: 2024-01-03 19:58:46
  * @FilePath: \react-100\src\app\Hooks\useWindowPosition.tsx
  * @Description: 
  * 
@@ -12,6 +12,7 @@
 import { useRef } from "react";
 
 export default function useWindowPosition() {
+    // debugger
     // console.log(window)
     const screenTop = useRef(window.screenTop);
     const screenLeft = useRef(window.screenLeft);
