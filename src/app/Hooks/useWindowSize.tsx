@@ -2,22 +2,20 @@
  * @Author: luckin 1832114807@qq.com
  * @Date: 2023-12-29 10:39:42
  * @LastEditors: luckin 1832114807@qq.com
- * @LastEditTime: 2024-01-03 20:18:45
+ * @LastEditTime: 2024-01-04 09:48:11
  * @FilePath: \react-100\src\app\Hooks\useWindowSize.tsx
  * @Description: 
  * 
  * Copyright (c) 2023 by ${git_name_email}, All Rights Reserved. 
  */
-import { useRef, useState } from 'react';
-
-// TODO: defaultWindow is common property which could be split into a const variable
+'use client'
+import { useState } from 'react';
 const isClient = typeof window !== "undefined";
 const defaultWindow = isClient ? window : void 0;
 
-
-export default function useWindowSize({ window: any = defaultWindow, initialWidth = window.innerWidth, initialHeight = window.innerHeight } = {}) {
-    const [width, setWidth] = useState<number>(initialWidth);
-    const [height, setHeight] = useState<number>(initialHeight);
+export default function useWindowSize(window: any = defaultWindow) {
+    const [width, setWidth] = useState<number>(window?.innerWidth);
+    const [height, setHeight] = useState<number>(window?.innerHeight);
 
     const update = () => {
         if (window) {
@@ -25,13 +23,10 @@ export default function useWindowSize({ window: any = defaultWindow, initialWidt
             setHeight(window.innerHeight)
         }
     };
-    // TODO: complete tryOnMounted
-    // update();
-    // shared.tryOnMounted(update);
-    // TODO: complete useEventListenner
-    // useEventListener("resize", update, { passive: true });
+
     window?.addEventListener('resize', () => {
         update();
     })
+
     return { width, height };
 }

@@ -2,22 +2,27 @@
  * @Author: luckin 1832114807@qq.com
  * @Date: 2023-12-28 09:18:25
  * @LastEditors: luckin 1832114807@qq.com
- * @LastEditTime: 2024-01-03 21:13:03
+ * @LastEditTime: 2024-01-04 11:14:13
  * @FilePath: \react-100\src\app\006\page.tsx
  * @Description: 
  * 
  * Copyright (c) 2023 by ${git_name_email}, All Rights Reserved. 
  */
 'use client'
-import { useRef, useMemo, useState } from 'react'
+import { useRef, useMemo, useState, useEffect } from 'react'
 import { useWindowSize, useWindowPosition } from '../Hooks'
-import { useMouse, useThrottleFn } from 'ahooks';
+import { useMount, useMouse, useThrottleFn } from 'ahooks';
+const isClient = typeof window !== "undefined";
+const defaultWindow = isClient ? window : void 0;
 
-export default function DragBox() {
+export default function DragBox(window: typeof defaultWindow) {
+    // TODO: Did not achieve expected results
+    // because i am not familiat to the base concept of react.
+    // mount window 
     const box = useRef<HTMLDivElement>(null)
     const mouse = useMouse(box.current)
     const { width, height } = useWindowSize()
-    const { screenLeft, screenTop } = useWindowPosition()
+    const { screenLeft, screenTop,screenHeight,screenWidth  } = useWindowPosition()
     const BOX_SIZE = 400
     const initBoxX = useRef((width - BOX_SIZE) / 2)
     const initBoxY = useRef((height - BOX_SIZE) / 2)
@@ -38,15 +43,18 @@ export default function DragBox() {
         setIsDragging(false)
     }
     if (isDragging) {
-        console.log(mouse.elementX, mouse.elementY)
         run()
     }
-    const boxX = Math.min(Math.max(0, initBoxX.current - draggingOffsets[0]), width - BOX_SIZE)
-    const boxY = Math.min(Math.max(0, initBoxY.current - draggingOffsets[1]), height - BOX_SIZE)
-    const innerX = -(boxX + screenLeft.current)
-    const innerY = -(boxY + screenTop.current)
-    const screenHeight = window.screen.height
-    const screenWidth = window.screen.width
+
+    const [innerX, setInnerX] = useState(0)
+    const [innerY, setInnerY] = useState(0)
+    const { run: updatePosition } = useThrottleFn(() => {
+        const boxX = Math.min(Math.max(0, initBoxX.current - draggingOffsets[0]), width - BOX_SIZE)
+        const boxY = Math.min(Math.max(0, initBoxY.current - draggingOffsets[1]), height - BOX_SIZE)
+        setInnerX(-(boxX + screenTop))
+        setInnerY(-(boxY + screenLeft))
+    }, { wait: 50 })
+    updatePosition()
 
     return (
         <div
