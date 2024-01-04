@@ -2,7 +2,7 @@
  * @Author: luckin 1832114807@qq.com
  * @Date: 2023-12-28 09:18:25
  * @LastEditors: luckin 1832114807@qq.com
- * @LastEditTime: 2024-01-04 11:14:13
+ * @LastEditTime: 2024-01-04 11:20:59
  * @FilePath: \react-100\src\app\006\page.tsx
  * @Description: 
  * 
@@ -15,14 +15,14 @@ import { useMount, useMouse, useThrottleFn } from 'ahooks';
 const isClient = typeof window !== "undefined";
 const defaultWindow = isClient ? window : void 0;
 
-export default function DragBox(window: typeof defaultWindow) {
+export default function DragBox(window: any = defaultWindow) {
     // TODO: Did not achieve expected results
     // because i am not familiat to the base concept of react.
     // mount window 
     const box = useRef<HTMLDivElement>(null)
     const mouse = useMouse(box.current)
     const { width, height } = useWindowSize()
-    const { screenLeft, screenTop,screenHeight,screenWidth  } = useWindowPosition()
+    const { screenLeft, screenTop, screenHeight, screenWidth } = useWindowPosition()
     const BOX_SIZE = 400
     const initBoxX = useRef((width - BOX_SIZE) / 2)
     const initBoxY = useRef((height - BOX_SIZE) / 2)
