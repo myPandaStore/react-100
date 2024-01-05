@@ -2,7 +2,7 @@
  * @Author: luckin 1832114807@qq.com
  * @Date: 2023-12-23 10:30:46
  * @LastEditors: luckin 1832114807@qq.com
- * @LastEditTime: 2023-12-23 10:33:41
+ * @LastEditTime: 2024-01-05 10:02:25
  * @FilePath: \react-100\src\app\utils\index.tsx
  * @Description: 
  * 
@@ -17,6 +17,18 @@ export function shuffle<T>(arr: T[]): T[] {
     }
     return array
 }
+
 export function range(to: number) {
     return new Array(to).fill(0).map((_, i) => i)
+}
+
+export type ColorVector = [number, number, number]
+
+export function hexToRgb(hex: string): ColorVector {
+    const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex)
+    return result ? [
+        parseInt(result[1], 16),
+        parseInt(result[2], 16),
+        parseInt(result[3], 16)
+    ] : [0, 0, 0]
 }
