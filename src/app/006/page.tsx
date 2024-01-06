@@ -2,7 +2,7 @@
  * @Author: luckin 1832114807@qq.com
  * @Date: 2023-12-28 09:18:25
  * @LastEditors: luckin 1832114807@qq.com
- * @LastEditTime: 2024-01-04 15:48:10
+ * @LastEditTime: 2024-01-06 10:06:51
  * @FilePath: \react-100\src\app\006\page.tsx
  * @Description: 
  * 
@@ -49,13 +49,19 @@ export default function DragBox(window: any = defaultWindow) {
         run()
     }
 
-    const [innerX, setInnerX] = useState(0)
-    const [innerY, setInnerY] = useState(0)
+    // const [innerX, setInnerX] = useState(0)
+    // const [innerY, setInnerY] = useState(0)
+    type InnerPositionType = {
+        x: number,
+        y: number
+    }
+    const [innerPosition, setInnerPosition] = useState<InnerPositionType>({ x: 0, y: 0 })
     const { run: updatePosition } = useThrottleFn(() => {
         const boxX = Math.min(Math.max(0, initBoxX.current - draggingOffsets[0]), width - BOX_SIZE)
         const boxY = Math.min(Math.max(0, initBoxY.current - draggingOffsets[1]), height - BOX_SIZE)
-        setInnerX(-(boxX + screenTop))
-        setInnerY(-(boxY + screenLeft))
+        // setInnerX(-(boxX + screenTop))
+        // setInnerY(-(boxY + screenLeft))
+        setInnerPosition({ x: -(boxX + screenTop), y: -(boxY + screenLeft) })
     }, { wait: 50 })
     updatePosition()
 
@@ -81,7 +87,7 @@ export default function DragBox(window: any = defaultWindow) {
                     onTouchEnd={handleMouseUp}
                 >
                     <div
-                        style={{ position: 'absolute', top: innerY, left: innerX, width: screenWidth, height: screenHeight, }}>
+                        style={{ position: 'absolute', top: innerPosition.y, left: innerPosition.x, width: screenWidth, height: screenHeight, }}>
                         <h3 className="font-bold mt-4 mb-2">The standard Lorem Ipsum passage, used since the 1500s</h3>
                         <p>{"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."}</p>
                         <h3 className="font-bold mt-4 mb-2">Section 1.10.32 of {"de Finibus Bonorum et Malorum"}, written by Cicero in 45 BC</h3>
