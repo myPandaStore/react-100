@@ -2,7 +2,7 @@
  * @Author: luckin 1832114807@qq.com
  * @Date: 2024-01-07 10:39:01
  * @LastEditors: luckin 1832114807@qq.com
- * @LastEditTime: 2024-01-07 15:16:08
+ * @LastEditTime: 2024-01-07 15:43:20
  * @FilePath: \react-100\src\app\009\page.tsx
  * @Description: 
  * 
@@ -11,6 +11,7 @@
 'use client'
 
 import { useReducer, useState } from 'react';
+import { useImmerReducer } from 'use-immer';
 import Paper from "../components/paper";
 import Note from "../components/note";
 
@@ -26,19 +27,29 @@ const initialTasks = [
     { id: 2, text: 'Lennon Wall pic', done: false },
 ];
 type Action = { type: 'added', text: string, id: number } | { type: 'deleted', id: number } | { type: 'edit', id: number, text: string } | { type: 'never' };
-function tasksReducer(tasks: Task[], action: Action) {
+function tasksReducer(draft: Task[], action: Action) {
     switch (action.type) {
         case 'added':
             {
-                return [...tasks, { id: tasks.length, text: action.text, done: false }]
+                // return [...tasks, { id: tasks.length, text: action.text, done: false }]
+                draft.push({
+                    id: action.id,
+                    text: action.text,
+                    done: false,
+                });
+                break;
             }
         case 'deleted':
             {
-                return tasks.filter(task => task.id !== action.id)
+                // return tasks.filter(task => task.id !== action.id)
+                return draft.filter(task => task.id !== action.id)
             }
         case 'edit':
             {
-                return tasks.map(task => (task.id === action.id ? { ...task, text: action.text } : task))
+                // return tasks.map(task => (task.id === action.id ? { ...task, text: action.text } : task))
+                const index = draft.findIndex(task => task.id === action.id);
+                draft[index].text = action.text;
+                break
             }
         default:
             {
@@ -47,7 +58,7 @@ function tasksReducer(tasks: Task[], action: Action) {
     }
 }
 export default function App() {
-    const [tasks, dispatch] = useReducer(tasksReducer, initialTasks);
+    const [tasks, dispatch] = useImmerReducer(tasksReducer, initialTasks);
 
     function handleTaskAdd(text: string) {
         dispatch(
