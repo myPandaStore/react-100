@@ -2,7 +2,7 @@
  * @Author: luckin 1832114807@qq.com
  * @Date: 2024-01-05 08:33:26
  * @LastEditors: luckin 1832114807@qq.com
- * @LastEditTime: 2024-01-05 10:49:45
+ * @LastEditTime: 2024-01-07 11:19:59
  * @FilePath: \react-100\src\app\007\page.tsx
  * @Description: 
  * 
@@ -13,10 +13,12 @@ import { useRef, useEffect } from "react"
 import { useMount } from "ahooks"
 import { load } from "../utils/load"
 import initCanvas from '../utils/initCanvas'
+import Note from "../components/note"
 import Paper from "../components/paper"
 import { range, } from "../utils"
 import { shuffle, hexToRgb } from "../utils"
 import { pick } from "../utils/vector"
+
 
 export default function Polar() {
     const el = useRef<HTMLCanvasElement | null>(null)
@@ -119,19 +121,24 @@ export default function Polar() {
         //     return ${exp.replace(/(\d+)(\w+)/g, (_, n, x) => `${n} * ${x}`)}
         //     }
         //   }`)()
-    },[])
+    }, [])
 
     return (
         <>
-            {/* <Paper> */}
-            <div className="box">
-                <canvas className="centered" ref={el}></canvas>
-            </div>
-            <div className="box-description">
-                <p>author</p>
-                <iframe ref={runner} />
-            </div>
-            {/* </Paper> */}
+            <Paper>
+                <div>
+                    <div className="box">
+                        <canvas className="centered" ref={el}></canvas>
+                    </div>
+                    <div className="box-description">
+                        <p>author</p>
+                        <iframe ref={runner} />
+                    </div>
+                </div>
+            </Paper>
+            <Note>
+                <p>polar test</p>
+            </Note>
         </>
     )
 }
