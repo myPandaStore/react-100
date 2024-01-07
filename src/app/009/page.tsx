@@ -2,7 +2,7 @@
  * @Author: luckin 1832114807@qq.com
  * @Date: 2024-01-07 10:39:01
  * @LastEditors: luckin 1832114807@qq.com
- * @LastEditTime: 2024-01-07 15:43:20
+ * @LastEditTime: 2024-01-07 16:07:40
  * @FilePath: \react-100\src\app\009\page.tsx
  * @Description: 
  * 
@@ -26,12 +26,11 @@ const initialTasks = [
     { id: 1, text: 'Watch a puppet show', done: false },
     { id: 2, text: 'Lennon Wall pic', done: false },
 ];
-type Action = { type: 'added', text: string, id: number } | { type: 'deleted', id: number } | { type: 'edit', id: number, text: string } | { type: 'never' };
+type Action = { type: 'added', text: string, id: number } | { type: 'deleted', id: number } | { type: 'changed', task: Task } | { type: 'never' };
 function tasksReducer(draft: Task[], action: Action) {
     switch (action.type) {
         case 'added':
             {
-                // return [...tasks, { id: tasks.length, text: action.text, done: false }]
                 draft.push({
                     id: action.id,
                     text: action.text,
@@ -41,14 +40,12 @@ function tasksReducer(draft: Task[], action: Action) {
             }
         case 'deleted':
             {
-                // return tasks.filter(task => task.id !== action.id)
                 return draft.filter(task => task.id !== action.id)
             }
-        case 'edit':
+        case 'changed':
             {
-                // return tasks.map(task => (task.id === action.id ? { ...task, text: action.text } : task))
-                const index = draft.findIndex(task => task.id === action.id);
-                draft[index].text = action.text;
+                const index = draft.findIndex(task => task.id === action.task.id);
+                draft[index] = action.task;
                 break
             }
         default:
@@ -77,12 +74,11 @@ export default function App() {
             }
         )
     }
-    function handleTaskEdit(taskId: number, text: string) {
+    function handleTaskChange(task: Task) {
         dispatch(
             {
-                type: 'edit',
-                id: taskId,
-                text: text
+                type: 'changed',
+                task: task,
             }
         )
     }
@@ -94,7 +90,7 @@ export default function App() {
                 <div className="centered">
                     <h1>Prague itinerary</h1>
                     <TaskAdd onTaskAdd={handleTaskAdd} />
-                    <Tasks tasks={tasks} onTaskDelete={handleTaskDelete} onTaskEdit={handleTaskEdit} />
+                    <Tasks tasks={tasks} onTaskDelete={handleTaskDelete} onTaskChange={handleTaskChange} />
                 </div>
             </Paper>
             <Note>
@@ -112,12 +108,14 @@ function TaskAdd({ onTaskAdd }: TaskAddProps) {
 
     return (
         <>
-            <input type="text" onChange={(e) => setText(e.target.value)} />
+            <input type="text" onChange={(e) => setText(e.target.value)} placeholder='Add your task' value={text}/>
             <button
                 className="ml-2 mr-2 border-2 border-solid rounded bg-slate-500"
                 onClick={
-                    () =>
+                    () => {
+                        setText('')
                         onTaskAdd(text)
+                    }
                 }
             >
                 Add
@@ -127,13 +125,13 @@ function TaskAdd({ onTaskAdd }: TaskAddProps) {
 }
 
 type TaskDeleteFn = (id: number) => void
-type TaskEditFn = (id: number, text: string) => void
+type TaskChangeFn = (task: Task) => void
 type TasksProp = {
     tasks: Task[],
     onTaskDelete: TaskDeleteFn,
-    onTaskEdit: TaskEditFn
+    onTaskChange: TaskChangeFn
 }
-function Tasks({ tasks, onTaskDelete, onTaskEdit }: TasksProp) {
+function Tasks({ tasks, onTaskDelete, onTaskChange }: TasksProp) {
 
     return (
         <ul>
@@ -142,7 +140,7 @@ function Tasks({ tasks, onTaskDelete, onTaskEdit }: TasksProp) {
                     <Task
                         task={task}
                         onTaskDelete={onTaskDelete}
-                        onTaskEdit={onTaskEdit}
+                        onTaskChange={onTaskChange}
                     />
                 </li>
             )}
@@ -153,22 +151,28 @@ function Tasks({ tasks, onTaskDelete, onTaskEdit }: TasksProp) {
 type TaskProp = {
     task: Task,
     onTaskDelete: TaskDeleteFn,
-    onTaskEdit: TaskEditFn
+    onTaskChange: TaskChangeFn
 }
-function Task({ task, onTaskDelete, onTaskEdit }: TaskProp) {
+function Task({ task, onTaskDelete, onTaskChange }: TaskProp) {
     const [isEditing, setIsEditing] = useState(false)
     const [text, setText] = useState(task.text)
 
     return (
         <>
-            <input type="checkbox" className="mr-2" />
+            <input
+                type="checkbox"
+                className="mr-2"
+                checked={task.done}
+                onChange={(e) => onTaskChange({ ...task, done: e.target.checked })}
+            />
+
             {isEditing ? <input type="text" onChange={(e) => setText(e.target.value)} /> : <div>{text}</div>}
             <button
                 className="ml-2 mr-2 border-2 border-solid rounded bg-slate-500"
                 onClick={
                     () => {
                         setIsEditing(!isEditing)
-                        onTaskEdit(task.id, text)
+                        onTaskChange({ ...task, text: text })
                     }
                 }
             >
