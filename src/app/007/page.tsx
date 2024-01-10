@@ -2,7 +2,7 @@
  * @Author: luckin 1832114807@qq.com
  * @Date: 2024-01-05 08:33:26
  * @LastEditors: luckin 1832114807@qq.com
- * @LastEditTime: 2024-01-07 11:19:59
+ * @LastEditTime: 2024-01-10 15:49:59
  * @FilePath: \react-100\src\app\007\page.tsx
  * @Description: 
  * 
@@ -112,7 +112,7 @@ export default function Polar() {
         const MathContext = `const {${Object.getOwnPropertyNames(Math).join(',')}}=Math`
 
         // eslint-disable-next-line no-eval
-        // @ts-expect-error
+    
 
         // TODO:useWatch
         // fn = runner.current!.contentWindow!.eval(`()=>{

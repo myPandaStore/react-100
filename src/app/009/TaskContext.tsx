@@ -37,7 +37,8 @@ export function TasksProvider({ children }: { children: React.ReactNode }) {
         </TasksContext.Provider>
     );
 }
-export default function tasksReducer(draft: Task[], action: Action) {
+
+function tasksReducer(draft: Task[], action: Action) {
     switch (action.type) {
         case 'added':
             {
