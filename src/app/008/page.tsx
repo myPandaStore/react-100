@@ -2,7 +2,7 @@
  * @Author: luckin 1832114807@qq.com
  * @Date: 2024-01-05 10:54:01
  * @LastEditors: luckin 1832114807@qq.com
- * @LastEditTime: 2024-01-10 16:02:08
+ * @LastEditTime: 2024-01-07 11:18:34
  * @FilePath: \react-100\src\app\008\page.tsx
  * @Description: 
  * 
@@ -16,7 +16,7 @@ import Paper from "../components/paper";
 import Note from "../components/note";
 
 export default function App() {
-    const [prev, setPrev] = useState<any>()
+    const [prev, setPrev] = useState()
     const [count, setCount] = useState(0);
 
     const stop = useWatch(count, (prevCount) => {
