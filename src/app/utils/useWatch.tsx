@@ -2,7 +2,7 @@
  * @Author: luckin 1832114807@qq.com
  * @Date: 2024-01-05 10:51:14
  * @LastEditors: luckin 1832114807@qq.com
- * @LastEditTime: 2024-01-05 10:51:30
+ * @LastEditTime: 2024-01-13 11:23:06
  * @FilePath: \react-100\src\app\utils\useWatch.tsx
  * @Description: 
  * 
@@ -31,12 +31,12 @@ function useWatch<T>(dep: T, callback: Callback<T>, config: Config = { immediate
         if (immediate) {
           execute();
         }
-      } else {
+      } else {immediate
         execute();
       }
       prev.current = dep;
     }
-  }, [dep]);
+  }, [dep, callback, immediate]);
 
   return () => {
     stop.current = true;

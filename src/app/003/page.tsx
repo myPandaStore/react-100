@@ -2,7 +2,7 @@
  * @Author: luckin 1832114807@qq.com
  * @Date: 2023-12-11 17:49:34
  * @LastEditors: luckin 1832114807@qq.com
- * @LastEditTime: 2024-01-11 20:19:51
+ * @LastEditTime: 2024-01-13 11:14:57
  * @FilePath: \react-100\src\app\003\page.tsx
  * @Description: 
  * 
@@ -44,7 +44,11 @@ export default function App() {
     )
 }
 
-
+const wireFrame = {
+    fillStyle: 'transparent',
+    strokeStyle: 'black',
+    lineWidth: 1,
+}
 function Mass() {
     const canvasRef = useRef<HTMLDivElement | null>(null)
     const engine = useRef(Engine.create())
@@ -53,11 +57,7 @@ function Mass() {
         const boxA = Bodies.rectangle(180, -40, 80, 80, { render: wireFrame })
         World.add(engine.current.world, [boxA])
     }
-    const wireFrame = {
-        fillStyle: 'transparent',
-        strokeStyle: 'black',
-        lineWidth: 1,
-    }
+
     useEffect(() => {
         const render = Render.create({
             element: canvasRef.current!,

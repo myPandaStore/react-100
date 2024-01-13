@@ -13,10 +13,11 @@ import { range, shuffle } from '../utils'
 const f = {
     run: noop
 }
+const patterns = ['*?', 'p0', 'p1', 'p2', 'p3']
 function Canvas() {
     const canvasRef = useRef<HTMLCanvasElement | null>(null)
     const [showHexagon, setShowHexagon] = useState<boolean>(false)
-    const patterns = ['*?', 'p0', 'p1', 'p2', 'p3']
+
     const [mode, setMode] = useState<string>(pick(patterns))
 
     function handleToggleClick() {
