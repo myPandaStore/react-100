@@ -2,7 +2,7 @@
  * @Author: luckin 1832114807@qq.com
  * @Date: 2023-12-15 20:22:11
  * @LastEditors: luckin 1832114807@qq.com
- * @LastEditTime: 2023-12-24 16:12:33
+ * @LastEditTime: 2024-01-14 16:56:57
  * @FilePath: \react-100\src\app\components\paper.tsx
  * @Description: 
  * 
@@ -24,7 +24,6 @@ export default function Paper({ children }: { children: JSX.Element }) {
     const work = works[index]
     const prev = works[index - 1]
     const next = works[index + 1]
-    // const { slot } = props
 
     // check hover
     const [isHovered, setIsHovered] = useState(false);
@@ -34,7 +33,7 @@ export default function Paper({ children }: { children: JSX.Element }) {
     function handleMouseLeave() {
         setIsHovered(false);
     }
-    let computedBottomNavClass = 'bottom-nav fixed bottom-0 pl-10 '
+    let computedBottomNavClass = 'z-10 bottom-nav fixed bottom-0 pl-10 '
     const computedPrevAndNextClass = isHovered ?
         'opacity-1 mt-0'
         :
