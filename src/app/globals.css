@@ -43,11 +43,17 @@ body {
   transform: translate(-50%, -50%);
 }
 
-a[target='_blank']:not(.link) {
+a[target="_blank"]:not(.link) {
   text-decoration: underline;
   opacity: 0.75;
   &:hover {
     opacity: 1;
     transition: all;
   }
+}
+
+.box {
+  width: 400px;
+  height: 400px;
+  border: 1px solid black;
 }
