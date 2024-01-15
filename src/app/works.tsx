@@ -2,7 +2,7 @@
  * @Author: luckin 1832114807@qq.com
  * @Date: 2023-12-02 15:37:03
  * @LastEditors: luckin 1832114807@qq.com
- * @LastEditTime: 2024-01-14 14:29:36
+ * @LastEditTime: 2024-01-14 20:01:38
  * @FilePath: \react-100\src\app\works.tsx
  * @Description: 
  * 
@@ -55,6 +55,11 @@ export const info = [
   },
   {
     name: 'M & M',
+    date: '1/14',
+    draft: true,
+  },
+  {
+    name: 'ship',
     date: '1/14',
     draft: true,
   }
