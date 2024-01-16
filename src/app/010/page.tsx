@@ -2,14 +2,14 @@
  * @Author: luckin 1832114807@qq.com
  * @Date: 2024-01-14 14:27:11
  * @LastEditors: luckin 1832114807@qq.com
- * @LastEditTime: 2024-01-14 16:59:21
+ * @LastEditTime: 2024-01-16 10:30:22
  * @FilePath: \react-100\src\app\010\page.tsx
  * @Description: 
  * 
  * Copyright (c) 2024 by ${git_name_email}, All Rights Reserved. 
  */
 'use client'
-import { useRef, useEffect, useState } from "react";
+import { useRef, useEffect, useState, useCallback } from "react";
 import Matter from "matter-js";
 import { useWindowSize } from "../Hooks";
 import { range } from '../utils'
@@ -21,9 +21,9 @@ export default function Mbox() {
     const viewport = useWindowSize();
     const [sphere, setSphere] = useState(true)
 
-    function toggleShape() {
+    const toggleShape = useCallback(() => {
         setSphere(!sphere)
-    }
+    }, [sphere])
 
     useEffect(() => {
         // init some object from Matter
@@ -208,7 +208,7 @@ export default function Mbox() {
             window.removeEventListener('mouseup', start)
             window.removeEventListener('mousedown', stop)
         }
-    }, [viewport, sphere])
+    }, [viewport, sphere, toggleShape])
     return (
         <>
             <Paper>
