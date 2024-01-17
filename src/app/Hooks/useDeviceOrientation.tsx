@@ -2,13 +2,13 @@
  * @Author: luckin 1832114807@qq.com
  * @Date: 2024-01-15 10:24:21
  * @LastEditors: luckin 1832114807@qq.com
- * @LastEditTime: 2024-01-15 11:02:50
+ * @LastEditTime: 2024-01-17 10:46:10
  * @FilePath: \react-100\src\app\Hooks\useDeviceOrientation.tsx
  * @Description: 
  * 
  * Copyright (c) 2024 by ${git_name_email}, All Rights Reserved. 
  */
-import { useState, useEffect } from "react";
+import { useState, useEffect, useDebugValue } from "react";
 
 const isClient = typeof window !== "undefined";
 const defaultWindow = isClient ? window : void 0;
@@ -35,7 +35,7 @@ export default function useDeviceOrientation(options: ConfigurableWindow = {}) {
         }
     }, [isSupported, window])
 
-
+    useDebugValue({ isSupported, isAbsolute, alpha, beta, gamma });
     return {
         isSupported,
         isAbsolute,

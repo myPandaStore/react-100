@@ -2,7 +2,7 @@
  * @Author: luckin 1832114807@qq.com
  * @Date: 2024-01-08 20:40:57
  * @LastEditors: luckin 1832114807@qq.com
- * @LastEditTime: 2024-01-17 09:53:53
+ * @LastEditTime: 2024-01-17 10:39:20
  * @FilePath: \react-100\src\app\009\TaskContext.tsx
  * @Description: 
  * 
@@ -17,9 +17,9 @@ const initialTasks: Task[] = [
     { id: 1, text: 'Watch a puppet show', done: false },
     { id: 2, text: 'Lennon Wall pic', done: false },
 ];
-
-export const TasksContext = createContext<Task[] | null>(null);
-export const TasksDispatchContext = createContext<React.Dispatch<Action> | null>(null);
+const initDispatch = () => {}
+export const TasksContext = createContext<Task[]>(initialTasks);
+export const TasksDispatchContext = createContext<React.Dispatch<Action>>(initDispatch);
 
 type Action = { type: 'added', text: string, id: number } | { type: 'deleted', id: number } | { type: 'changed', task: Task } | { type: 'never' };
 
