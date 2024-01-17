@@ -2,7 +2,7 @@
  * @Author: luckin 1832114807@qq.com
  * @Date: 2024-01-17 15:31:29
  * @LastEditors: luckin 1832114807@qq.com
- * @LastEditTime: 2024-01-17 17:25:14
+ * @LastEditTime: 2024-01-17 17:50:29
  * @FilePath: \react-100\src\app\012\page.tsx
  * @Description: 
  * 
@@ -17,9 +17,10 @@ export default function App() {
     const el = useRef<HTMLCanvasElement | null>(null)
     const [count, setCount] = useState(0)
 
-    const [pause, resume, active] = useRafFn(() => {
+    const { pause, resume, active } = useRafFn(() => {
         setCount(count => count + 1)
         console.log(count)
+        console.log(active())
     })
 
     useEffect(() => {

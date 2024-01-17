@@ -2,7 +2,7 @@
  * @Author: luckin 1832114807@qq.com
  * @Date: 2023-12-27 09:48:47
  * @LastEditors: luckin 1832114807@qq.com
- * @LastEditTime: 2024-01-17 17:17:29
+ * @LastEditTime: 2024-01-17 17:49:09
  * @FilePath: \react-100\src\app\Hooks\useRafFn.tsx
  * @Description: 
  * 
@@ -21,8 +21,12 @@
 import { useCallback, useEffect, useMemo, useRef } from "react";
 import useLatest from "./useLatest";
 
-export type RafLoopReturns = readonly [() => void, () => void, () => boolean];
-
+// export type RafLoopReturns = readonly [() => void, () => void, () => boolean];
+type RafLoopReturns = {
+    resume: () => void;
+    pause: () => void;
+    active: () => boolean;
+}
 export default function useRafFn(
     callback: FrameRequestCallback,
     initiallyActive = true,
@@ -42,33 +46,34 @@ export default function useRafFn(
     );
 
     const result = useMemo(
-        () =>
-            [
-                () => {
+        () => {
+            return {
+                pause: () => {
                     // stop
                     if (rafActivity.current) {
                         rafActivity.current = false;
                         raf.current && cancelAnimationFrame(raf.current);
                     }
                 },
-                () => {
+                resume: () => {
                     // start
                     if (!rafActivity.current) {
                         rafActivity.current = true;
                         raf.current = requestAnimationFrame(step);
                     }
                 },
-                (): boolean => rafActivity.current, // isActive
-            ] as const,
+                active: (): boolean => rafActivity.current, // isActive
+            }
+        },
         [step],
     );
 
     useEffect(() => {
         if (initiallyActive) {
-            result[1]();
+            result.resume();
         }
 
-        return result[0];
+        return result.pause;
     }, [initiallyActive, result]);
 
     return result;
