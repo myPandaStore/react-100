@@ -2,54 +2,74 @@
  * @Author: luckin 1832114807@qq.com
  * @Date: 2023-12-27 09:48:47
  * @LastEditors: luckin 1832114807@qq.com
- * @LastEditTime: 2023-12-27 09:59:40
+ * @LastEditTime: 2024-01-17 17:17:29
  * @FilePath: \react-100\src\app\Hooks\useRafFn.tsx
  * @Description: 
  * 
- * Copyright (c) 2023 by ${git_name_email}, All Rights Reserved. 
+ * Copyright (c) 2024 by ${git_name_email}, All Rights Reserved. 
  */
-import { useRef } from "react";
-const isClient = typeof window !== "undefined";
-const defaultWindow = isClient ? window : void 0;
+/*
+ * @Author: luckin 1832114807@qq.com
+ * @Date: 2023-12-27 09:48:47
+ * @LastEditors: luckin 1832114807@qq.com
+ * @LastEditTime: 2024-01-17 17:16:04
+ * @FilePath: \react-100\src\app\Hooks\useRafFn.tsx
+ * @Description: 
+ * 
+ * Copyright (c) 2024 by ${git_name_email}, All Rights Reserved. 
+ */
+import { useCallback, useEffect, useMemo, useRef } from "react";
+import useLatest from "./useLatest";
 
-export function useRafFn(fn: Function, options: { immediate?: boolean; window?: Window | undefined; } = {}) {
-    const {
-        immediate = true,
-        window = defaultWindow
-    } = options;
-    const isActive = useRef<boolean>(false);
-    function loop() {
-        if (!isActive.current || !window)
-            return;
-        fn();
-        window.requestAnimationFrame(loop);
-    }
-    loop()
-    // function resume() {
-    //     if (!isActive.current && window) {
-    //         isActive.current = true;
-    //         loop();
-    //     }
-    // }
-    // function pause() {
-    //     isActive.current = false;
-    // }
-    // if (immediate)
-    //     resume();
+export type RafLoopReturns = readonly [() => void, () => void, () => boolean];
 
-    // tryOnScopeDispose(pause);
-    // pause()
-    // return {
-    //     isActive,
-    //     pause,
-    //     resume
-    // };
+export default function useRafFn(
+    callback: FrameRequestCallback,
+    initiallyActive = true,
+): RafLoopReturns {
+    const raf = useRef<number | null>(null);
+    const rafActivity = useRef<boolean>(false);
+    const rafCallback = useLatest(callback);
+
+    const step = useCallback(
+        (time: number) => {
+            if (rafActivity.current) {
+                rafCallback.current(time);
+                raf.current = requestAnimationFrame(step);
+            }
+        },
+        [rafCallback],
+    );
+
+    const result = useMemo(
+        () =>
+            [
+                () => {
+                    // stop
+                    if (rafActivity.current) {
+                        rafActivity.current = false;
+                        raf.current && cancelAnimationFrame(raf.current);
+                    }
+                },
+                () => {
+                    // start
+                    if (!rafActivity.current) {
+                        rafActivity.current = true;
+                        raf.current = requestAnimationFrame(step);
+                    }
+                },
+                (): boolean => rafActivity.current, // isActive
+            ] as const,
+        [step],
+    );
+
+    useEffect(() => {
+        if (initiallyActive) {
+            result[1]();
+        }
+
+        return result[0];
+    }, [initiallyActive, result]);
+
+    return result;
 }
-
-// function tryOnScopeDispose(fn) {
-//     if (vueDemi.getCurrentScope()) {
-//       vueDemi.onScopeDispose(fn);
-//       return true;
-//     }
-//     return false;
-//   }

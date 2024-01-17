@@ -2,7 +2,7 @@
  * @Author: luckin 1832114807@qq.com
  * @Date: 2023-12-02 15:37:03
  * @LastEditors: luckin 1832114807@qq.com
- * @LastEditTime: 2024-01-14 20:01:38
+ * @LastEditTime: 2024-01-17 15:31:13
  * @FilePath: \react-100\src\app\works.tsx
  * @Description: 
  * 
@@ -61,6 +61,11 @@ export const info = [
   {
     name: 'ship',
     date: '1/14',
+    draft: true,
+  },
+  {
+    name: 'Negative',
+    date: '1/17',
     draft: true,
   }
 ]
