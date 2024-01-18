@@ -2,7 +2,7 @@
  * @Author: luckin 1832114807@qq.com
  * @Date: 2023-12-22 10:37:07
  * @LastEditors: luckin 1832114807@qq.com
- * @LastEditTime: 2023-12-23 10:23:08
+ * @LastEditTime: 2024-01-18 16:11:37
  * @FilePath: \react-100\src\app\utils\vector.tsx
  * @Description: 
  * 
@@ -17,6 +17,7 @@ export const r30 = Math.PI / 6
 export const r15 = Math.PI / 12
 export const r120 = Math.PI / 3 * 2
 export const r360 = Math.PI * 2
+export const SQRT_3 = Math.sqrt(3)
 
 export function exclude<T>(arr: T[], current: T): T[] {
     return arr.filter(item => item !== current)
