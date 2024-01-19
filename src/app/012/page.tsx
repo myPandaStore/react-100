@@ -2,7 +2,7 @@
  * @Author: luckin 1832114807@qq.com
  * @Date: 2024-01-17 15:31:29
  * @LastEditors: luckin 1832114807@qq.com
- * @LastEditTime: 2024-01-19 12:13:08
+ * @LastEditTime: 2024-01-19 14:56:04
  * @FilePath: \react-100\src\app\012\page.tsx
  * @Description: 
  * 
@@ -134,7 +134,7 @@ export default function App() {
                     ? 1200
                     : 600
             let r = t / duration * r90
-            const turn = Math.trunc(t / duration) % 2 === 0
+            const turn = Math.trunc(t / duration) % 2
             const cycle = Math.trunc(t / duration) % 4
 
             if (turn) {
@@ -172,13 +172,13 @@ export default function App() {
         }
     }, [wireFrame, speedLevel, colors])
 
-    useRafFn(frame.current)
+    const { pause, resume } = useRafFn(frame.current)
 
     function handleTurnClick() {
         const next = (speeds.indexOf(speedLevel) + 1) % speeds.length
         setSpeedLevel(speeds[next])
     }
-    // TODO: how to immidately run frame while mounted in useEffect
+    // TODO:square and diamond 切换有点卡顿
 
     return (
         <>
@@ -191,7 +191,11 @@ export default function App() {
                 </div>
             </Paper>
             <Note>
-                <p>draw diamond & square in every frame</p>
+                <div>
+                    <button onClick={pause} className="mr-2">pause</button>
+                    <button onClick={resume}>resume</button>
+                    <p>draw diamond & square in every frame</p>
+                </div>
             </Note>
         </>
     )
