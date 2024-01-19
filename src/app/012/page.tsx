@@ -2,7 +2,7 @@
  * @Author: luckin 1832114807@qq.com
  * @Date: 2024-01-17 15:31:29
  * @LastEditors: luckin 1832114807@qq.com
- * @LastEditTime: 2024-01-18 20:26:10
+ * @LastEditTime: 2024-01-19 12:13:08
  * @FilePath: \react-100\src\app\012\page.tsx
  * @Description: 
  * 
@@ -12,30 +12,31 @@
 import { useEffect, useRef, useState } from "react"
 import initCanvas from "../utils/initCanvas"
 import useRafFn from "../Hooks/useRafFn"
-import { SQRT_3, Vector, r90 } from '../utils/vector'
+import { SQRT_3, Vector, r90, r30, pick, r60 } from '../utils/vector'
+import { range, shuffle } from '../utils'
+import Turn from "../components/turn"
+import Paper from "../components/paper"
+import Note from "../components/note"
 
 export default function App() {
     const el = useRef<HTMLCanvasElement | null>(null)
-    const [count, setCount] = useState(0)
-    const [speed, setSpeed] = useState(1200)
-    const speedLevel = useRef('x1')
+    const speeds = ['x0.5', 'x1', 'x2']
+    const [speedLevel, setSpeedLevel] = useState('x1')
+    const frame = useRef(() => { })
+    const [wireFrame, setWireFrame] = useState(true)
+    const [colors, setColors] = useState(['#6A8372', '#ffe7b3'])
 
-    // const { pause, resume, active } = useRafFn(() => {
-    //     setCount(count => count + 1)
-    //     console.log(count)
-    //     console.log(active())
-    // })
-
-    // todo setSpeed
     useEffect(() => {
-        if (speedLevel.current === 'x0.5') {
-            setSpeed(2400)
-        }
-        else if (speedLevel.current === 'x2') {
-            setSpeed(600)
-        }
-    }, [])
+        const colorPresets = [
+            ['#444444', '#ffffff'],
+            ['#6A8372', '#ffe7b3'],
+            ['#B54434', '#E3916E'],
+            ['#1E88A8', '#eefefd'],
+        ]
+        setColors(shuffle(pick(colorPresets)))
+    }, [wireFrame])
 
+    const timestamp = () => +Date.now();
     useEffect(() => {
         const canvas = el.current!
         const { ctx, dpi, remove } = initCanvas(canvas, 500, 500)
@@ -49,22 +50,20 @@ export default function App() {
         const amount = Math.ceil(width / d) + 1
         const offset = -hs
 
-        // draw function
         function draw(vec: Vector[]) {
             ctx.beginPath()
             ctx.moveTo(...vec[0])
             vec.slice(1).forEach(v => ctx.lineTo(...v))
+            ctx.lineTo(...vec[0])
 
-            ctx.stroke()
-            // ctx.fill()
+            if (wireFrame) {
+                ctx.stroke()
+            } else {
+                ctx.fill()
+            }
         }
 
-        // generate vectors
-
-        // function move(vec, dx, dy) {
-
-        // }
-        function move(vec: Vector[], dx: number, dy: number): Vector[] {
+        function move(vec: Vector[], dx = 0, dy = 0): Vector[] {
             return vec.map(([x, y]) => [x + dx, y + dy])
         }
 
@@ -74,57 +73,126 @@ export default function App() {
             return vec.map(([x, y]) => [x * cos - y * sin, x * sin + y * cos])
         }
 
-        // timestamp
-        const timestamp = () => +Date.now();
 
+        // diamond
+        const diamond: Vector[] = [
+            [-hs, 0],
+            [0, -r3s],
+            [hs, 0],
+            [0, r3s]
+        ]
+        function drawDiamonds(h: Vector[], v: Vector[]) {
+            for (const x of range(amount)) {
+                for (const y of range(amount)) {
+                    draw(
+                        move(
+                            (x + y) % 2 ? h : v,
+                            x * d + offset,
+                            y * d + offset
+                        )
+                    )
+                }
+            }
+        }
+
+        // square
+        const square: Vector[] = [
+            [-hs, -hs],
+            [-hs, hs],
+            [hs, hs],
+            [hs, -hs],
+        ]
+        function drawSquares(h: Vector[], v: Vector[]) {
+            for (const x of range(amount)) {
+                for (const y of range(amount)) {
+                    draw(
+                        move(
+                            (x + y) % 2 ? h : v,
+                            (x - 0.5) * d + offset,
+                            (y - 0.5) * d + offset
+                        )
+                    )
+                }
+            }
+        }
 
 
         // draw in every frame 
-        const frame = () => {
-            // init canvas in every frame
-            // ctx.clearRect(0, 0, width, height)
+        const ts = timestamp() + 1000
+        frame.current = () => {
+            ctx.clearRect(0, 0, width, height)
+
             ctx.strokeStyle = 'black'
-            ctx.lineWidth = 2
-
-            // draw diamond
-
-            // generate one for test
-            const testVector: Vector[] = [[0, 0], [60, 60], [60, 120], [0, 60], [0, 0]]
+            ctx.lineWidth = 1
 
             let h: Vector[] = []
             let v: Vector[] = []
-
-            // rotate
-            const ts = timestamp() + 1000
             const t = Math.max(timestamp() - ts, 0)
-            const duration = speed
+            const duration = speedLevel === 'x0.5'
+                ? 2400
+                : speedLevel === 'x1'
+                    ? 1200
+                    : 600
             let r = t / duration * r90
-            h = rotate(testVector, 120)
-            console.log(h, testVector)
+            const turn = Math.trunc(t / duration) % 2 === 0
+            const cycle = Math.trunc(t / duration) % 4
 
-            for (const x of [1, ]) {
-                for (const y of [1,]) {
-                    draw(move(h, x * d + offset, y * d + offset))
+            if (turn) {
+                // draw diamond
+                if (!wireFrame) {
+                    ctx.rect(0, 0, width, height)
+                    ctx.fillStyle = colors[1]
+                    ctx.fill()
+                    ctx.fillStyle = colors[0]
                 }
+                if (cycle === 1) {
+                    r += 90
+                }
+                h = rotate(diamond, r)
+                v = rotate(diamond, r + r90)
+                drawDiamonds(h, v)
+
+            } else {
+                // draw squares
+                if (!wireFrame) {
+                    ctx.rect(0, 0, width, height)
+                    ctx.fillStyle = colors[0]
+                    ctx.fill()
+                    ctx.fillStyle = colors[1]
+                }
+                if (cycle === 2) {
+                    h = rotate(square, r + r60)
+                    v = rotate(square, r - r60)
+                } else {
+                    h = rotate(square, r + r30)
+                    v = rotate(square, r - r30)
+                }
+                drawSquares(h, v)
             }
-
-            // draw squares
-
         }
-        frame()
-        // return () => {
-        //     remove()
-        // }
-    }, [])
+    }, [wireFrame, speedLevel, colors])
+
+    useRafFn(frame.current)
+
+    function handleTurnClick() {
+        const next = (speeds.indexOf(speedLevel) + 1) % speeds.length
+        setSpeedLevel(speeds[next])
+    }
+    // TODO: how to immidately run frame while mounted in useEffect
 
     return (
-        <div className="centered">
-
-            <canvas ref={el} >
-            </canvas>
-            {/* <button onClick={pause}>pause</button>
-            <button onClick={resume}>resume</button>
-            <p>{active()}</p> */}
-        </div>
+        <>
+            <Paper >
+                <div className="centered">
+                    <canvas ref={el} >
+                    </canvas>
+                    <button onClick={() => setWireFrame(!wireFrame)}>wireFrame</button>
+                    <Turn options={speeds} opt={speeds[0]} onTurn={handleTurnClick} />
+                </div>
+            </Paper>
+            <Note>
+                <p>draw diamond & square in every frame</p>
+            </Note>
+        </>
     )
 }

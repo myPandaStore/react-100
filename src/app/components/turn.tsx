@@ -11,8 +11,8 @@
 import { useState } from 'react'
 
 type TurnType = {
-    opt: string,
-    options: string[],
+    opt: string | number,
+    options: (string | number)[],
     onTurn: () => void,
 }
 export default function Turn({ opt, options, onTurn }: TurnType) {
