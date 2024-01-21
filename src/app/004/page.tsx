@@ -1,5 +1,5 @@
 "use client"
-import { useEffect, useRef, useState, } from 'react'
+import { useEffect, useRef, useState, useMemo } from 'react'
 import Paper from '../components/paper'
 import Toggle from '../components/toggle'
 import Note from '../components/note'
@@ -13,8 +13,8 @@ import { range, shuffle } from '../utils'
 const f = {
     run: noop
 }
-const patterns = ['*?', 'p0', 'p1', 'p2', 'p3']
 function Canvas() {
+    const patterns = useMemo(() => ['*?', 'p0', 'p1', 'p2', 'p3'], [])
     const canvasRef = useRef<HTMLCanvasElement | null>(null)
     const [showHexagon, setShowHexagon] = useState<boolean>(false)
 
@@ -142,7 +142,7 @@ function Canvas() {
         return () => {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
         }
-    }, [mode, showHexagon])
+    }, [mode, showHexagon, patterns])
 
     return (
         <div className='centered flex flex-col items-center'>

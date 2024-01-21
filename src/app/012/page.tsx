@@ -2,7 +2,7 @@
  * @Author: luckin 1832114807@qq.com
  * @Date: 2024-01-17 15:31:29
  * @LastEditors: luckin 1832114807@qq.com
- * @LastEditTime: 2024-01-19 14:56:04
+ * @LastEditTime: 2024-01-19 16:39:28
  * @FilePath: \react-100\src\app\012\page.tsx
  * @Description: 
  * 
@@ -72,7 +72,6 @@ export default function App() {
             const cos = Math.cos(rad)
             return vec.map(([x, y]) => [x * cos - y * sin, x * sin + y * cos])
         }
-
 
         // diamond
         const diamond: Vector[] = [
@@ -170,6 +169,13 @@ export default function App() {
                 drawSquares(h, v)
             }
         }
+        // function stop() {
+        //     ctx.clearRect(0, 0, width, height)
+        //     // canvas.remove()
+        // }
+        // return () => {
+        //     stop()
+        // }
     }, [wireFrame, speedLevel, colors])
 
     const { pause, resume } = useRafFn(frame.current)
