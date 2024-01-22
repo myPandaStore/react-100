@@ -147,7 +147,7 @@ function Canvas() {
     return (
         <div className='centered flex flex-col items-center'>
             <canvas
-                style={{ width: '400px', height: '400px' }}
+                style={{ width: '400px', height: '400px', border: '1px solid #000' }}
                 ref={canvasRef}
                 onClick={f.run} />
             <Turn onTurn={handleTurnClick} opt={patterns[0]} options={patterns} />

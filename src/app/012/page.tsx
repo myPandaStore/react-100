@@ -2,7 +2,7 @@
  * @Author: luckin 1832114807@qq.com
  * @Date: 2024-01-17 15:31:29
  * @LastEditors: luckin 1832114807@qq.com
- * @LastEditTime: 2024-01-19 16:39:28
+ * @LastEditTime: 2024-01-22 19:31:21
  * @FilePath: \react-100\src\app\012\page.tsx
  * @Description: 
  * 
@@ -34,6 +34,7 @@ export default function App() {
             ['#1E88A8', '#eefefd'],
         ]
         setColors(shuffle(pick(colorPresets)))
+        console.log('1')
     }, [wireFrame])
 
     const timestamp = () => +Date.now();
@@ -119,6 +120,7 @@ export default function App() {
         // draw in every frame 
         const ts = timestamp() + 1000
         frame.current = () => {
+            console.log('frame')
             ctx.clearRect(0, 0, width, height)
 
             ctx.strokeStyle = 'black'

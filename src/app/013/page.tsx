@@ -31,12 +31,11 @@ export default function App() {
         start: () => { },
         stop: () => { },
     }), [])
-    // const f = {
-    //     start: () => { },
-    //     stop: () => { },
-    // }
 
-    const MathContext = `const {${Object.getOwnPropertyNames(Math).join(',')}}=Math`
+    const [MathContext, setMathContext] = useState('')
+    useEffect(() => {
+        setMathContext(`const {${Object.getOwnPropertyNames(Math).join(',')}}=Math`)
+    }, [])
 
     useEffect(() => {
         const canvas = plum.current!;
@@ -144,9 +143,8 @@ export default function App() {
         catch (e: any) {
             console.log(expX, expY, e.message)
         }
-        // console.log('run effect',frame.current)
+
         return () => {
-            // console.log('clean')
             f.stop()
         }
 
