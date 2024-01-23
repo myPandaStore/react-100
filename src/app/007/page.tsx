@@ -2,7 +2,7 @@
  * @Author: luckin 1832114807@qq.com
  * @Date: 2024-01-05 08:33:26
  * @LastEditors: luckin 1832114807@qq.com
- * @LastEditTime: 2024-01-22 19:20:41
+ * @LastEditTime: 2024-01-23 09:51:38
  * @FilePath: \react-100\src\app\007\page.tsx
  * @Description: 
  * 
@@ -122,12 +122,14 @@ export default function Polar() {
         //     }
         //   }`)()
     }, [])
+    const canvasClass = el.current === null ? 'centered' : 'centered border border-black'
+
 
     return (
         <>
             <Paper>
                 <div>
-                    <canvas className="centered border border-black" ref={el}></canvas>
+                    <canvas className={canvasClass} ref={el}></canvas>
                     <div className="box-description">
                         <p>author</p>
                         <iframe ref={runner} />

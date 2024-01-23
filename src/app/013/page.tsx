@@ -11,6 +11,7 @@ type RafControlType = {
     pause: () => void;
     active: () => boolean;
 }
+// TODO: 初始化渲染闪烁
 export default function App() {
     const plum = useRef<HTMLCanvasElement | null>(null);
     const runner = useRef(null);
@@ -151,12 +152,13 @@ export default function App() {
     }, [expX, expY, f, MathContext])
 
     rafControl.current = useRafFn(frame.current)
+    const canvasClass = plum.current === null ? '' : 'border border-black'
 
     return (
         <>
             <Paper>
                 <div className='centered'>
-                    <canvas ref={plum} style={{ border: '1px solid black' }}></canvas>
+                    <canvas ref={plum} className={canvasClass}></canvas>
                     <div className='box-description'>
                         <p>(t,x,y)={'>'}</p>
                         <div>
