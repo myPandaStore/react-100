@@ -2,7 +2,7 @@
  * @Author: luckin 1832114807@qq.com
  * @Date: 2023-12-22 09:58:50
  * @LastEditors: luckin 1832114807@qq.com
- * @LastEditTime: 2024-01-23 15:56:38
+ * @LastEditTime: 2024-01-23 16:44:06
  * @FilePath: \react-100\src\app\components\turn.tsx
  * @Description: 
  * 
@@ -15,7 +15,8 @@ type TurnType = {
     options: (string | number)[],
     onTurn: () => void,
 }
-export default forwardRef(function Turn({ opt, options, onTurn }: TurnType, ref: any) {
+
+const Turn = forwardRef(function Turn({ opt, options, onTurn }: TurnType, ref: any): any {
     const index = options.indexOf(opt) || 0
     const [idx, setIdx] = useState<number>(index)
     opt = options[idx]
@@ -34,15 +35,22 @@ export default forwardRef(function Turn({ opt, options, onTurn }: TurnType, ref:
         setHover(!hover)
         setActive(!active)
     }
-    const reset = () => {
+    function reset() {
         setIdx(0)
     }
+    // const someMethod = () => {
+
+    //     // 子组件的方法实现
+    //     console.log('Child method called!');
+    //   };
     useImperativeHandle(ref, () => ({
-        reset
+        reset,
+        // someMethod
     }), [])
 
     return (
         <div
+            ref={ref}
             style={{ marginLeft: '-400px', translate: `50%`, cursor: 'pointer', opacity: active ? 1 : 0.2, textDecoration: hover ? 'underline' : 'none' }}
             onClick={handleClick}
             onMouseEnter={handleMouseEnter}
@@ -52,3 +60,4 @@ export default forwardRef(function Turn({ opt, options, onTurn }: TurnType, ref:
         </div>
     )
 })
+export default Turn

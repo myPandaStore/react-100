@@ -2,7 +2,7 @@
  * @Author: luckin 1832114807@qq.com
  * @Date: 2024-01-17 15:31:29
  * @LastEditors: luckin 1832114807@qq.com
- * @LastEditTime: 2024-01-23 16:02:28
+ * @LastEditTime: 2024-01-23 16:36:33
  * @FilePath: \react-100\src\app\012\page.tsx
  * @Description: 
  * 
@@ -120,9 +120,9 @@ export default function App() {
 
         // draw in every frame 
         const ts = timestamp() + 1000
-        console.log(speedLevel)
+        // console.log(speedLevel)
         frame.current = () => {
-            console.log(speedLevel)
+            // console.log(speedLevel)
             ctx.clearRect(0, 0, width, height)
 
             ctx.strokeStyle = 'black'
@@ -194,7 +194,11 @@ export default function App() {
     // TODO:square and diamond 切换有点卡顿
 
     //TODO: turn or useRafFn 
-    // 第一次click不触发 useRafFn里面的speedLevel
+    // 第一次click不触发 useRafFn里面的speedLevesl
+    // console.log(turnRef?.current?.reset)
+    // if (turnRef.current) {
+    //     console.log(turnRef.current['reset'])
+    // }
     return (
         <>
             <Paper >
@@ -204,13 +208,12 @@ export default function App() {
                     <button onClick={() => {
                         setWireFrame(!wireFrame)
                         setSpeedLevel(speeds[0])
-
+                        // @ts-ignore
                         turnRef.current!.reset()
                     }
                     }
                     >wireFrame</button>
                     <Turn
-                        key={speedLevel}
                         ref={turnRef}
                         options={speeds}
                         opt={speedLevel}
