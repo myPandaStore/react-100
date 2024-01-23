@@ -2,20 +2,20 @@
  * @Author: luckin 1832114807@qq.com
  * @Date: 2023-12-22 09:58:50
  * @LastEditors: luckin 1832114807@qq.com
- * @LastEditTime: 2023-12-24 17:03:34
+ * @LastEditTime: 2024-01-23 15:56:38
  * @FilePath: \react-100\src\app\components\turn.tsx
  * @Description: 
  * 
  * Copyright (c) 2023 by ${git_name_email}, All Rights Reserved. 
  */
-import { useState } from 'react'
+import { useState, forwardRef, useImperativeHandle } from 'react'
 
 type TurnType = {
     opt: string | number,
     options: (string | number)[],
     onTurn: () => void,
 }
-export default function Turn({ opt, options, onTurn }: TurnType) {
+export default forwardRef(function Turn({ opt, options, onTurn }: TurnType, ref: any) {
     const index = options.indexOf(opt) || 0
     const [idx, setIdx] = useState<number>(index)
     opt = options[idx]
@@ -34,6 +34,12 @@ export default function Turn({ opt, options, onTurn }: TurnType) {
         setHover(!hover)
         setActive(!active)
     }
+    const reset = () => {
+        setIdx(0)
+    }
+    useImperativeHandle(ref, () => ({
+        reset
+    }), [])
 
     return (
         <div
@@ -45,4 +51,4 @@ export default function Turn({ opt, options, onTurn }: TurnType) {
             {opt}
         </div>
     )
-}
+})

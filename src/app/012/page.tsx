@@ -2,7 +2,7 @@
  * @Author: luckin 1832114807@qq.com
  * @Date: 2024-01-17 15:31:29
  * @LastEditors: luckin 1832114807@qq.com
- * @LastEditTime: 2024-01-23 10:48:34
+ * @LastEditTime: 2024-01-23 16:02:28
  * @FilePath: \react-100\src\app\012\page.tsx
  * @Description: 
  * 
@@ -19,6 +19,7 @@ import Paper from "../components/paper"
 import Note from "../components/note"
 
 export default function App() {
+    const turnRef = useRef(null)
     const el = useRef<HTMLCanvasElement | null>(null)
     const speeds = ['x0.5', 'x1', 'x2']
     const [speedLevel, setSpeedLevel] = useState('x1')
@@ -119,7 +120,9 @@ export default function App() {
 
         // draw in every frame 
         const ts = timestamp() + 1000
+        console.log(speedLevel)
         frame.current = () => {
+            console.log(speedLevel)
             ctx.clearRect(0, 0, width, height)
 
             ctx.strokeStyle = 'black'
@@ -184,13 +187,14 @@ export default function App() {
     function handleTurnClick() {
         const next = (speeds.indexOf(speedLevel) + 1) % speeds.length
         setSpeedLevel(speeds[next])
-        // console.log(speedLevel)
     }
 
     const canvasClass = el.current === null ? '' : 'border border-black'
 
     // TODO:square and diamond 切换有点卡顿
 
+    //TODO: turn or useRafFn 
+    // 第一次click不触发 useRafFn里面的speedLevel
     return (
         <>
             <Paper >
@@ -200,10 +204,17 @@ export default function App() {
                     <button onClick={() => {
                         setWireFrame(!wireFrame)
                         setSpeedLevel(speeds[0])
+
+                        turnRef.current!.reset()
                     }
                     }
                     >wireFrame</button>
-                    <Turn key={speedLevel} options={speeds} opt={speedLevel} onTurn={handleTurnClick} />
+                    <Turn
+                        key={speedLevel}
+                        ref={turnRef}
+                        options={speeds}
+                        opt={speedLevel}
+                        onTurn={handleTurnClick} />
                 </div>
             </Paper>
             <Note>
