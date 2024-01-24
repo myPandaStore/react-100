@@ -2,7 +2,7 @@
  * @Author: luckin 1832114807@qq.com
  * @Date: 2023-12-02 15:37:03
  * @LastEditors: luckin 1832114807@qq.com
- * @LastEditTime: 2024-01-21 14:32:39
+ * @LastEditTime: 2024-01-24 09:49:37
  * @FilePath: \react-100\src\app\works.tsx
  * @Description: 
  * 
@@ -72,7 +72,11 @@ export const info = [
     name: 'Unreproducible',
     date: '1/21',
     draft: true,
-
+  },
+  {
+    name: '方圆',
+    date: '1/24',
+    draft: true
   }
 ]
 

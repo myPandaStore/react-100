@@ -2,7 +2,7 @@
  * @Author: luckin 1832114807@qq.com
  * @Date: 2023-12-15 20:22:11
  * @LastEditors: luckin 1832114807@qq.com
- * @LastEditTime: 2024-01-14 16:56:57
+ * @LastEditTime: 2024-01-24 11:54:08
  * @FilePath: \react-100\src\app\components\paper.tsx
  * @Description: 
  * 
@@ -46,7 +46,7 @@ export default function Paper({ children }: { children: JSX.Element }) {
 
 
     return (
-        <div className="paper w-full">
+        <div className="paper w-full" style={{ background: 'white' }}>
             <div className="nav cursor-pointer pl-10">
                 <Link href={'/'}>
                     &lt;
