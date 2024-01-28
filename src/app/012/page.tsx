@@ -2,7 +2,7 @@
  * @Author: luckin 1832114807@qq.com
  * @Date: 2024-01-17 15:31:29
  * @LastEditors: luckin 1832114807@qq.com
- * @LastEditTime: 2024-01-23 16:36:33
+ * @LastEditTime: 2024-01-28 10:18:30
  * @FilePath: \react-100\src\app\012\page.tsx
  * @Description: 
  * 
@@ -17,6 +17,7 @@ import { range, shuffle } from '../utils'
 import Turn from "../components/turn"
 import Paper from "../components/paper"
 import Note from "../components/note"
+import { timestamp } from "../utils"
 
 export default function App() {
     const turnRef = useRef(null)
@@ -37,7 +38,6 @@ export default function App() {
         setColors(shuffle(pick(colorPresets)))
     }, [wireFrame])
 
-    const timestamp = () => +Date.now();
     useEffect(() => {
 
         const canvas = el.current!

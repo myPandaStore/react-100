@@ -2,7 +2,7 @@
  * @Author: luckin 1832114807@qq.com
  * @Date: 2023-12-23 10:30:46
  * @LastEditors: luckin 1832114807@qq.com
- * @LastEditTime: 2024-01-05 10:02:25
+ * @LastEditTime: 2024-01-28 10:17:17
  * @FilePath: \react-100\src\app\utils\index.tsx
  * @Description: 
  * 
@@ -32,3 +32,5 @@ export function hexToRgb(hex: string): ColorVector {
         parseInt(result[3], 16)
     ] : [0, 0, 0]
 }
+
+export const timestamp = () => +Date.now();

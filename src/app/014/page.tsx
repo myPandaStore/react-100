@@ -2,7 +2,7 @@
  * @Author: luckin 1832114807@qq.com
  * @Date: 2024-01-24 09:50:17
  * @LastEditors: luckin 1832114807@qq.com
- * @LastEditTime: 2024-01-24 12:00:43
+ * @LastEditTime: 2024-01-28 10:18:57
  * @FilePath: \react-100\src\app\014\page.tsx
  * @Description: 
  * 
@@ -15,7 +15,7 @@ import initCanvas from '../utils/initCanvas';
 import { SQRT_2, r90, r180, pick } from '../utils/vector';
 import Paper from '../components/paper';
 import Note from '../components/note';
-import { range, shuffle } from '../utils'
+import { range, shuffle, timestamp } from '../utils'
 
 export default function App() {
     const el = useRef<HTMLCanvasElement | null>(null);
@@ -33,7 +33,7 @@ export default function App() {
         setColors(shuffle(pick(colorPresets)))
     }, [colorPresets])
 
-    const timestamp = () => +Date.now();
+    // const timestamp = () => +Date.now();
 
     useEffect(() => {
         const canvas = el.current!

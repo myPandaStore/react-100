@@ -2,7 +2,7 @@
  * @Author: luckin 1832114807@qq.com
  * @Date: 2024-01-27 17:57:51
  * @LastEditors: luckin 1832114807@qq.com
- * @LastEditTime: 2024-01-27 19:48:28
+ * @LastEditTime: 2024-01-28 10:19:12
  * @FilePath: \react-100\src\app\015\page.tsx
  * @Description: 
  * 
@@ -14,13 +14,13 @@ import useRafFn from "../Hooks/useRafFn"
 import * as THREE from 'three'
 import { r90, pick } from "../utils/vector"
 import { OutlineEffect } from 'three/examples/jsm/effects/OutlineEffect.js'
-import { shuffle, } from "../utils"
+import { shuffle, timestamp } from "../utils"
 
 
 export default function Box() {
     const el = useRef<HTMLDivElement | null>(null);
     const frame = useRef(() => { })
-    const timestamp = () => +Date.now();
+    // const timestamp = () => +Date.now();
     const debug = useRef(false)
     const [colors, setColors] = useState(['#6A8372', '#ffe7b3'])
     const colorPresets = useMemo(() => {
