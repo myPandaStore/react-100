@@ -2,7 +2,7 @@
  * @Author: luckin 1832114807@qq.com
  * @Date: 2024-01-28 20:21:36
  * @LastEditors: luckin 1832114807@qq.com
- * @LastEditTime: 2024-01-28 21:21:26
+ * @LastEditTime: 2024-01-29 16:19:17
  * @FilePath: \react-100\src\app\016\page.tsx
  * @Description: 
  * 
@@ -13,7 +13,8 @@ import { useRef, useEffect, useState } from 'react'
 import useRafFn from '../Hooks/useRafFn'
 import { timestamp } from '../utils'
 import initCanvas from '../utils/initCanvas'
-import { useThrottle } from 'ahooks'
+import Paper from '../components/paper'
+import Note from '../components/note'
 
 const { cos, sin, abs, random, max, round } = Math
 type Color = { r?: number, g?: number, b?: number }
@@ -129,9 +130,14 @@ export default function App() {
         </div>
     )
     return (
-        <div className="box centered">
-            <canvas ref={el}></canvas>
-            {coeffItems}
-        </div>
+        <>
+            <Paper >
+                <div className="box centered">
+                    <canvas ref={el}></canvas>
+                    {coeffItems}
+                </div>
+            </Paper>
+            <Note></Note>
+        </>
     )
 }
