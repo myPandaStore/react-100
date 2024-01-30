@@ -10,6 +10,7 @@
     "test": "vitest --run"
   },
   "dependencies": {
+    "@lingdong/psvg": "^0.0.2",
     "@react-native-community/hooks": "^3.0.0",
     "@react-navigation/native": "^6.1.9",
     "ahooks": "^3.7.8",
