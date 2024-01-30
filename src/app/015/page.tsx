@@ -2,7 +2,7 @@
  * @Author: luckin 1832114807@qq.com
  * @Date: 2024-01-27 17:57:51
  * @LastEditors: luckin 1832114807@qq.com
- * @LastEditTime: 2024-01-28 10:19:12
+ * @LastEditTime: 2024-01-30 18:12:51
  * @FilePath: \react-100\src\app\015\page.tsx
  * @Description: 
  * 
@@ -15,6 +15,8 @@ import * as THREE from 'three'
 import { r90, pick } from "../utils/vector"
 import { OutlineEffect } from 'three/examples/jsm/effects/OutlineEffect.js'
 import { shuffle, timestamp } from "../utils"
+import Paper from "../components/paper"
+import Note from "../components/note"
 
 
 export default function Box() {
@@ -184,6 +186,12 @@ export default function Box() {
     useRafFn(frame.current)
 
     return (
-        <div className="centered" ref={el}></div>
+        <>
+            <Paper >
+
+                <div className="centered" ref={el}></div>
+            </Paper>
+            <Note></Note>
+        </>
     )
 }
