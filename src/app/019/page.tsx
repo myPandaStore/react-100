@@ -2,7 +2,7 @@
  * @Author: luckin 1832114807@qq.com
  * @Date: 2024-01-31 08:38:45
  * @LastEditors: luckin 1832114807@qq.com
- * @LastEditTime: 2024-01-31 10:04:57
+ * @LastEditTime: 2024-01-31 10:08:29
  * @FilePath: \react-100\src\app\019\page.tsx
  * @Description: 
  * 
@@ -14,6 +14,7 @@ import useRafFn from "../Hooks/useRafFn"
 import initCanvas from "../utils/initCanvas"
 import { Vector } from "../utils/vector"
 import { range, random, inbound, colorInterpration, hexToRgb } from "../utils"
+// @ts-ignore
 import { sampleSize } from 'lodash-es'
 import Paper from "../components/paper"
 import Note from "../components/note"

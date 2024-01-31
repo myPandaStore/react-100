@@ -9,6 +9,7 @@
  * Copyright (c) 2023 by ${git_name_email}, All Rights Reserved. 
  */
 import { Vector } from "./vector";
+// @ts-ignore
 import { clamp } from 'lodash-es'
 
 export function shuffle<T>(arr: T[]): T[] {
