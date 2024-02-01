@@ -18,7 +18,7 @@ function Canvas() {
     const canvasRef = useRef<HTMLCanvasElement | null>(null)
     const [showHexagon, setShowHexagon] = useState<boolean>(false)
 
-    const [mode, setMode] = useState<string>(pick(patterns))
+    const [mode, setMode] = useState<string>('p0')
 
     function handleToggleClick() {
         setShowHexagon(!showHexagon)
@@ -150,7 +150,7 @@ function Canvas() {
                 style={{ width: '400px', height: '400px', border: '1px solid #000' }}
                 ref={canvasRef}
                 onClick={f.run} />
-            <Turn onTurn={handleTurnClick} opt={patterns[0]} options={patterns} />
+            <Turn toggle={handleTurnClick} opt={mode} />
             <Toggle onToggle={handleToggleClick}>
                 <div>hex</div>
             </Toggle>

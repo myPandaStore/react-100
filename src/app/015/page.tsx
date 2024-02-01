@@ -2,46 +2,33 @@
  * @Author: luckin 1832114807@qq.com
  * @Date: 2024-01-27 17:57:51
  * @LastEditors: luckin 1832114807@qq.com
- * @LastEditTime: 2024-01-30 18:12:51
+ * @LastEditTime: 2024-02-01 12:20:40
  * @FilePath: \react-100\src\app\015\page.tsx
  * @Description: 
  * 
  * Copyright (c) 2024 by ${git_name_email}, All Rights Reserved. 
  */
 'use client'
-import { useRef, useEffect, useState, useMemo } from "react"
+import { useRef, useEffect } from "react"
 import useRafFn from "../Hooks/useRafFn"
 import * as THREE from 'three'
-import { r90, pick } from "../utils/vector"
+import { r90 } from "../utils/vector"
 import { OutlineEffect } from 'three/examples/jsm/effects/OutlineEffect.js'
-import { shuffle, timestamp } from "../utils"
+import { timestamp } from "../utils"
 import Paper from "../components/paper"
 import Note from "../components/note"
 
 
 export default function Box() {
     const el = useRef<HTMLDivElement | null>(null);
-    const frame = useRef(() => { })
-    // const timestamp = () => +Date.now();
-    const debug = useRef(false)
-    const [colors, setColors] = useState(['#6A8372', '#ffe7b3'])
-    const colorPresets = useMemo(() => {
-        return [
-            ['#444444', '#ffffff'],
-            ['#6A8372', '#ffe7b3'],
-            ['#B54434', '#E3916E'],
-            ['#1E88A8', '#eefefd'],
-        ]
-    }, [])
-    useEffect(() => {
-        setColors(shuffle(pick(colorPresets)))
-    }, [colorPresets])
+    const frame = useRef<() => void>(() => { })
+    const debug = useRef<boolean>(false)
 
     useEffect(() => {
         const div = el.current!
         function createMesh(geometry: any, solid = true) {
             const material = new THREE.MeshBasicMaterial({
-                color: colors[0],
+                color: 'red',
                 polygonOffset: true,
                 polygonOffsetFactor: 1, // positive value pushes polygon further away
                 polygonOffsetUnits: 1,
@@ -183,7 +170,7 @@ export default function Box() {
         }
     }, [])
 
-    useRafFn(frame.current)
+    useRafFn(frame.current, true, { immediate: true })
 
     return (
         <>

@@ -2,7 +2,7 @@
  * @Author: luckin 1832114807@qq.com
  * @Date: 2023-12-02 15:37:03
  * @LastEditors: luckin 1832114807@qq.com
- * @LastEditTime: 2024-01-31 08:38:20
+ * @LastEditTime: 2024-02-01 10:06:40
  * @FilePath: \react-100\src\app\works.tsx
  * @Description: 
  * 
@@ -101,6 +101,11 @@ export const info = [
   {
     name: 'Rust',
     date: '1/31',
+    draft: true
+  },
+  {
+    name: 'Connect',
+    date: '2/1',
     draft: true
   }
 ]

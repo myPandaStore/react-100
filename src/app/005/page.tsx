@@ -2,7 +2,7 @@
  * @Author: luckin 1832114807@qq.com
  * @Date: 2023-12-27 09:29:07
  * @LastEditors: luckin 1832114807@qq.com
- * @LastEditTime: 2024-01-13 11:21:22
+ * @LastEditTime: 2024-02-01 10:36:08
  * @FilePath: \react-100\src\app\005\page.tsx
  * @Description: 
  * 
@@ -13,19 +13,11 @@ import { useRef, useEffect } from "react"
 import * as THREE from 'three'
 import Paper from "../components/paper"
 import Note from "../components/note"
-
-// TODO: useRafFn replace the temporary help fn 
-// difficulties in how to useHook in useEffect
-function help(fn: Function) {
-    function loop() {
-        fn()
-        window.requestAnimationFrame(loop)
-    }
-    loop()
-}
+import useRafFn from "../Hooks/useRafFn"
 
 export default function WaveBox() {
-    const box = useRef<HTMLDivElement>(null)
+    const box = useRef<HTMLDivElement | null>(null)
+    const frame = useRef<() => void>(() => { })
 
     const fragmentShader = `
 precision mediump float;
@@ -185,17 +177,19 @@ void main() {
         const mesh = new THREE.Mesh(geometry, material)
         scene.add(mesh)
 
-        help(() => {
+        frame.current = () => {
             material.uniforms.uTime.value = clock.getElapsedTime()
             renderer.render(scene, camera)
-        })
+        }
 
         return () => {
             if (!current)
                 return
-                current.removeChild(renderer.domElement);
+            current.removeChild(renderer.domElement);
         }
     }, [fragmentShader, vertexShader])
+
+    useRafFn(frame.current, true, { immediate: true })
 
     return (
         <>

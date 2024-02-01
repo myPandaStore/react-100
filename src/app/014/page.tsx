@@ -2,7 +2,7 @@
  * @Author: luckin 1832114807@qq.com
  * @Date: 2024-01-24 09:50:17
  * @LastEditors: luckin 1832114807@qq.com
- * @LastEditTime: 2024-01-28 10:18:57
+ * @LastEditTime: 2024-02-01 12:17:27
  * @FilePath: \react-100\src\app\014\page.tsx
  * @Description: 
  * 
@@ -19,21 +19,7 @@ import { range, shuffle, timestamp } from '../utils'
 
 export default function App() {
     const el = useRef<HTMLCanvasElement | null>(null);
-    const frame = useRef(() => { })
-    const [colors, setColors] = useState(['#6A8372', '#ffe7b3'])
-    const colorPresets = useMemo(() => {
-        return [
-            ['#444444', '#ffffff'],
-            ['#6A8372', '#ffe7b3'],
-            ['#B54434', '#E3916E'],
-            ['#1E88A8', '#eefefd'],
-        ]
-    }, [])
-    useEffect(() => {
-        setColors(shuffle(pick(colorPresets)))
-    }, [colorPresets])
-
-    // const timestamp = () => +Date.now();
+    const frame = useRef<() => void>(() => { })
 
     useEffect(() => {
         const canvas = el.current!
@@ -46,7 +32,7 @@ export default function App() {
         frame.current = () => {
             const t = Math.max(timestamp() - ts, 0)
             ctx.clearRect(0, 0, width, height);
-            ctx.strokeStyle = colors[0];
+            ctx.strokeStyle = '#000000';
             ctx.lineWidth = 0.5
 
             for (const i of range(30)) {
@@ -116,9 +102,9 @@ export default function App() {
 
             ctx.stroke()
         }
-    }, [colors])
+    }, [])
 
-    useRafFn(frame.current)
+    useRafFn(frame.current, true, { immediate: true })
 
     return (
         <>

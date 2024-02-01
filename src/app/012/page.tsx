@@ -2,7 +2,7 @@
  * @Author: luckin 1832114807@qq.com
  * @Date: 2024-01-17 15:31:29
  * @LastEditors: luckin 1832114807@qq.com
- * @LastEditTime: 2024-01-28 10:18:30
+ * @LastEditTime: 2024-02-01 12:10:44
  * @FilePath: \react-100\src\app\012\page.tsx
  * @Description: 
  * 
@@ -26,7 +26,7 @@ export default function App() {
     const [speedLevel, setSpeedLevel] = useState('x1')
     const frame = useRef(() => { })
     const [wireFrame, setWireFrame] = useState(true)
-    const [colors, setColors] = useState(['#6A8372', '#ffe7b3'])
+    const colors = useRef<string[]>([])
 
     useEffect(() => {
         const colorPresets = [
@@ -35,10 +35,7 @@ export default function App() {
             ['#B54434', '#E3916E'],
             ['#1E88A8', '#eefefd'],
         ]
-        setColors(shuffle(pick(colorPresets)))
-    }, [wireFrame])
-
-    useEffect(() => {
+        colors.current = shuffle(pick(colorPresets))
 
         const canvas = el.current!
         const { ctx, dpi, remove } = initCanvas(canvas, 500, 500)
@@ -117,12 +114,15 @@ export default function App() {
             }
         }
 
-
         // draw in every frame 
         const ts = timestamp() + 1000
-        // console.log(speedLevel)
+        const duration = speedLevel === 'x0.5'
+            ? 2400
+            : speedLevel === 'x1'
+                ? 1200
+                : 600
+
         frame.current = () => {
-            // console.log(speedLevel)
             ctx.clearRect(0, 0, width, height)
 
             ctx.strokeStyle = 'black'
@@ -131,11 +131,8 @@ export default function App() {
             let h: Vector[] = []
             let v: Vector[] = []
             const t = Math.max(timestamp() - ts, 0)
-            const duration = speedLevel === 'x0.5'
-                ? 2400
-                : speedLevel === 'x1'
-                    ? 1200
-                    : 600
+
+
             let r = t / duration * r90
             const turn = Math.trunc(t / duration) % 2
             const cycle = Math.trunc(t / duration) % 4
@@ -144,9 +141,9 @@ export default function App() {
                 // draw diamond
                 if (!wireFrame) {
                     ctx.rect(0, 0, width, height)
-                    ctx.fillStyle = colors[1]
+                    ctx.fillStyle = colors.current[1]
                     ctx.fill()
-                    ctx.fillStyle = colors[0]
+                    ctx.fillStyle = colors.current[0]
                 }
                 if (cycle === 1) {
                     r += 90
@@ -159,9 +156,9 @@ export default function App() {
                 // draw squares
                 if (!wireFrame) {
                     ctx.rect(0, 0, width, height)
-                    ctx.fillStyle = colors[0]
+                    ctx.fillStyle = colors.current[0]
                     ctx.fill()
-                    ctx.fillStyle = colors[1]
+                    ctx.fillStyle = colors.current[1]
                 }
                 if (cycle === 2) {
                     h = rotate(square, r + r60)
@@ -173,32 +170,21 @@ export default function App() {
                 drawSquares(h, v)
             }
         }
-        // function stop() {
-        //     ctx.clearRect(0, 0, width, height)
-        //     // canvas.remove()
-        // }
-        // return () => {
-        //     stop()
-        // }
-    }, [speedLevel, colors, wireFrame])
+    }, [speedLevel, wireFrame])
 
-    const { pause, resume } = useRafFn(frame.current)
+    const { pause, resume } = useRafFn(frame.current, true, { immediate: true })
 
-    function handleTurnClick() {
-        const next = (speeds.indexOf(speedLevel) + 1) % speeds.length
-        setSpeedLevel(speeds[next])
+    function handleToggle() {
+        const next = ([...speeds].indexOf(speedLevel) + 1) % speeds.length
+        setSpeedLevel([...speeds][next])
     }
 
     const canvasClass = el.current === null ? '' : 'border border-black'
 
-    // TODO:square and diamond 切换有点卡顿
+    // TODO: square and diamond 切换有点卡顿
 
-    //TODO: turn or useRafFn 
-    // 第一次click不触发 useRafFn里面的speedLevesl
-    // console.log(turnRef?.current?.reset)
-    // if (turnRef.current) {
-    //     console.log(turnRef.current['reset'])
-    // }
+    // TODO: 第一次 toggle frame.current 里面得speedLevel没有正确更新
+
     return (
         <>
             <Paper >
@@ -214,10 +200,9 @@ export default function App() {
                     }
                     >wireFrame</button>
                     <Turn
-                        ref={turnRef}
-                        options={speeds}
                         opt={speedLevel}
-                        onTurn={handleTurnClick} />
+                        toggle={handleToggle}
+                    />
                 </div>
             </Paper>
             <Note>

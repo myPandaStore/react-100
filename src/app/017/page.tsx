@@ -2,7 +2,7 @@
  * @Author: luckin 1832114807@qq.com
  * @Date: 2024-01-29 16:17:41
  * @LastEditors: luckin 1832114807@qq.com
- * @LastEditTime: 2024-01-29 17:56:26
+ * @LastEditTime: 2024-02-01 12:24:10
  * @FilePath: \react-100\src\app\017\page.tsx
  * @Description: 
  * 
@@ -15,7 +15,6 @@ import useRafFn from "../Hooks/useRafFn"
 import { polar2cart, r90, r180, r15 } from "../utils/vector"
 import Paper from "../components/paper"
 import Note from "../components/note"
-// import { useThrottleFn } from "@reactuses/core";
 
 const { random } = Math
 export default function Plum() {
@@ -24,22 +23,9 @@ export default function Plum() {
     const start = useRef(() => { })
     const [len, setLen] = useState(5)
     const [init, setInit] = useState(5)
-    const [coeff, setCoeff] = useState<number[]>([
-        0, 0, 0, 0, 0, 0,
-        2, 3, 2, 2, 6, -2,
-        8, 2, 1, 2, -5.3, 3,
-    ])
 
-    // TODO: remove uncessary state, temporay for init mount
-    useEffect(() => {
-        setCoeff([
-            1, 4.3, 4, 2, 6, 4,
-            2, 3, 2, 2, 6, -2,
-            8, 2, 1, 2, -5.3, 3,
-        ])
-    }, [])
 
-    const { pause, resume } = useRafFn(frame.current)
+    const { pause, resume } = useRafFn(frame.current, true, { immediate: true })
 
     useEffect(() => {
         const canvas = el.current!
@@ -106,7 +92,7 @@ export default function Plum() {
         return () => {
             pause()
         }
-    }, [len, pause, resume, init, coeff])
+    }, [len, pause, resume, init])
 
 
     function handleInit() {

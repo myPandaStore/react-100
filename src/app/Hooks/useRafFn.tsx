@@ -2,7 +2,7 @@
  * @Author: luckin 1832114807@qq.com
  * @Date: 2023-12-27 09:48:47
  * @LastEditors: luckin 1832114807@qq.com
- * @LastEditTime: 2024-01-19 10:28:29
+ * @LastEditTime: 2024-02-01 12:10:34
  * @FilePath: \react-100\src\app\Hooks\useRafFn.tsx
  * @Description: 
  * 
@@ -18,7 +18,7 @@
  * 
  * Copyright (c) 2024 by ${git_name_email}, All Rights Reserved. 
  */
-import { useCallback, useEffect, useMemo, useRef } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import useLatest from "./useLatest";
 
 // export type RafLoopReturns = readonly [() => void, () => void, () => boolean];
@@ -29,11 +29,23 @@ type RafLoopReturns = {
 }
 export default function useRafFn(
     callback: FrameRequestCallback,
-    initiallyActive = true,
+    initiallyActive: boolean,
+    options: {
+        immediate?: boolean;
+    }
 ): RafLoopReturns {
     const raf = useRef<number | null>(null);
     const rafActivity = useRef<boolean>(false);
     const rafCallback = useLatest(callback);
+    const { immediate } = options
+    const [trigger, setTrigger] = useState('')
+
+    useEffect(() => {
+        // trigger re-render so that useRaffn can get the setted frame.current in useEffect
+        if (immediate) {
+            setTrigger('1')
+        }
+    }, [immediate])
 
     const step = useCallback(
         (time: number) => {
@@ -74,7 +86,7 @@ export default function useRafFn(
         }
 
         return result.pause;
-    }, [initiallyActive, result]);
+    }, [initiallyActive, result, callback]);
 
     return result;
 }

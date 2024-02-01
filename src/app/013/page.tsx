@@ -33,16 +33,13 @@ export default function App() {
         stop: () => { },
     }), [])
 
-    const [MathContext, setMathContext] = useState('')
-    useEffect(() => {
-        setMathContext(`const {${Object.getOwnPropertyNames(Math).join(',')}}=Math`)
-    }, [])
+    const MathContext = `const {${Object.getOwnPropertyNames(Math).join(',')}}=Math`
 
     useEffect(() => {
         const canvas = plum.current!;
         const width = 400
         const height = 400
-        const { ctx } = initCanvas(canvas, width, height)
+        const { ctx, dpi } = initCanvas(canvas, width, height)
 
         const data = ctx.createImageData(width, height)
 
@@ -107,10 +104,12 @@ export default function App() {
                 }
             }
         }
+
         f.stop = () => {
             stopped.current = true
             rafControl.current.pause()
         }
+
         f.start = () => {
             t = 0
             ix = 0
@@ -151,14 +150,15 @@ export default function App() {
 
     }, [expX, expY, f, MathContext])
 
-    rafControl.current = useRafFn(frame.current)
+    rafControl.current = useRafFn(frame.current, true, { immediate: true })
     const canvasClass = plum.current === null ? '' : 'border border-black'
 
+    // TODO: dpi
     return (
         <>
             <Paper>
                 <div className='centered'>
-                    <canvas ref={plum} className={canvasClass}></canvas>
+                    <canvas ref={plum} className={canvasClass} width={400} height={400}></canvas>
                     <div className='box-description'>
                         <p>(t,x,y)={'>'}</p>
                         <div>

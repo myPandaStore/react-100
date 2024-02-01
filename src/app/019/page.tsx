@@ -2,7 +2,7 @@
  * @Author: luckin 1832114807@qq.com
  * @Date: 2024-01-31 08:38:45
  * @LastEditors: luckin 1832114807@qq.com
- * @LastEditTime: 2024-01-31 10:08:29
+ * @LastEditTime: 2024-02-01 12:24:50
  * @FilePath: \react-100\src\app\019\page.tsx
  * @Description: 
  * 
@@ -26,14 +26,8 @@ export default function RustApp() {
     const frame = useRef(() => {
     })
     const start = useRef(() => { })
-    const [color, setColor] = useState<string>('#000000')
 
-    //TODO: uncessary useEffect for trigger re-render so that useRafn fn can be set exactly.
-    useEffect(() => {
-        setColor('red')
-    }, [])
-
-    const { resume, pause } = useRafFn(frame.current)
+    const { resume, pause } = useRafFn(frame.current, true, { immediate: true })
 
     const [tick, setTick] = useState(0)
     const maxTicks = 5000

@@ -2,7 +2,7 @@
  * @Author: luckin 1832114807@qq.com
  * @Date: 2024-01-28 20:21:36
  * @LastEditors: luckin 1832114807@qq.com
- * @LastEditTime: 2024-01-29 16:19:17
+ * @LastEditTime: 2024-02-01 12:23:15
  * @FilePath: \react-100\src\app\016\page.tsx
  * @Description: 
  * 
@@ -22,21 +22,12 @@ type Color = { r?: number, g?: number, b?: number }
 export default function App() {
     const el = useRef<HTMLCanvasElement | null>(null)
     const frame = useRef(() => { })
-    const [num, setNum] = useState(0)
     const [coeff, setCoeff] = useState<number[]>([
         0, 0, 0, 0, 0, 0,
         2, 3, 2, 2, 6, -2,
         8, 2, 1, 2, -5.3, 3,
     ])
-    // trigger re-render so that frame.current can be set effectively
-    // TODO:with such re-render, how to set right frame
-    useEffect(() => {
-        setCoeff([
-            1, 4.3, 4, 2, 6, 4,
-            2, 3, 2, 2, 6, -2,
-            8, 2, 1, 2, -5.3, 3,
-        ])
-    }, [])
+
 
     const ts = timestamp()
     useEffect(() => {
@@ -103,7 +94,7 @@ export default function App() {
             ctx.putImageData(data, 0, 0)
         }
     }, [ts, coeff])
-    useRafFn(frame.current)
+    useRafFn(frame.current, true, { immediate: true })
 
     function randomCoeff(idx: number) {
         if (idx % 2)
