@@ -2,7 +2,7 @@
  * @Author: luckin 1832114807@qq.com
  * @Date: 2023-12-23 10:30:46
  * @LastEditors: luckin 1832114807@qq.com
- * @LastEditTime: 2024-01-31 09:34:14
+ * @LastEditTime: 2024-02-01 15:26:14
  * @FilePath: \react-100\src\app\utils\index.tsx
  * @Description: 
  * 
@@ -11,6 +11,10 @@
 import { Vector } from "./vector";
 // @ts-ignore
 import { clamp } from 'lodash-es'
+
+export function toHex(c: number) {
+    return c.toString(16).padStart(2, '0')
+}
 
 export function shuffle<T>(arr: T[]): T[] {
     const array = arr.slice(0)
@@ -51,6 +55,14 @@ export function colorInterpration(vectors: ColorVector[], n: number): ColorVecto
         a2 * nfrac + b2 * frac,
         a3 * nfrac + b3 * frac,
     ]
+}
+
+export function square(x: number) {
+    return x ** 2
+}
+export function distance([x1, y1]: Vector, [x2, y2]: Vector) {
+    return Math.sqrt(square(x1 - x2) + square(y1 - y2))
+
 }
 
 export type ColorVector = [number, number, number]
