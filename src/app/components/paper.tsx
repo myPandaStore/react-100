@@ -2,7 +2,7 @@
  * @Author: luckin 1832114807@qq.com
  * @Date: 2023-12-15 20:22:11
  * @LastEditors: luckin 1832114807@qq.com
- * @LastEditTime: 2024-01-24 11:54:08
+ * @LastEditTime: 2024-02-02 18:36:27
  * @FilePath: \react-100\src\app\components\paper.tsx
  * @Description: 
  * 
@@ -15,6 +15,7 @@ import { works } from '../works'
 import { usePathname } from 'next/navigation';
 import { useState } from 'react';
 import { useTitle, } from '../Hooks/index';
+import ClassNames from 'classnames';
 
 export default function Paper({ children }: { children: JSX.Element }) {
     // init work pre next
@@ -27,19 +28,33 @@ export default function Paper({ children }: { children: JSX.Element }) {
 
     // check hover
     const [isHovered, setIsHovered] = useState(false);
+    const [preHovered, setPreHovered] = useState(false)
+    const [nextHovered, setNextHovered] = useState(false)
     function handleMouseEnter() {
         setIsHovered(true);
     }
     function handleMouseLeave() {
         setIsHovered(false);
     }
-    let computedBottomNavClass = 'z-10 bottom-nav fixed bottom-0 pl-10 '
-    const computedPrevAndNextClass = isHovered ?
-        'opacity-1 mt-0'
-        :
-        'opacity-0 -mt-6 block transition-all ease-in-out delay-150'
 
-    // change title according to different sub project
+    function handlePreMouseEnter() {
+        setPreHovered(true);
+    }
+    function handlePreMouseLeave() {
+        setPreHovered(false);
+    }
+    function handleNextMouseEnter() {
+        setNextHovered(true);
+    }
+    function handleNextMouseLeave() {
+        setNextHovered(false);
+    }
+
+    const bottomNavClass = 'z-10 bottom-nav fixed bottom-0 pl-10 '
+
+    const preClass = ClassNames('pre opacity-0', { 'link': isHovered }, { '!opacity-100': preHovered },)
+    const nextClass = ClassNames('next opacity-0', { 'link': isHovered }, { '!opacity-100': nextHovered, })
+
     useTitle(work ? `${no}. ${work.name}` : '404')
 
     //TODO full screen
@@ -53,13 +68,14 @@ export default function Paper({ children }: { children: JSX.Element }) {
                 </Link>
             </div>
             <div
-                className={computedBottomNavClass}
+                className={bottomNavClass}
                 onMouseEnter={handleMouseEnter}
-                onMouseLeave={handleMouseLeave}
-            >
+                onMouseLeave={handleMouseLeave}>
                 {
                     prev &&
-                    <div className={computedPrevAndNextClass}>
+                    <div className={preClass}
+                        onMouseEnter={handlePreMouseEnter}
+                        onMouseLeave={handlePreMouseLeave}>
                         <Link href={prev.no}>
                             <span>{prev.name}</span>
                             <span>{prev.no}</span>
@@ -73,7 +89,10 @@ export default function Paper({ children }: { children: JSX.Element }) {
                 </div>
                 {
                     next &&
-                    <div className={computedPrevAndNextClass}>
+                    <div className={nextClass}
+                        onMouseEnter={handleNextMouseEnter}
+                        onMouseLeave={handleNextMouseLeave}>
+
                         <Link href={next.no}>
                             <span>{next.name}</span>
                             <span>{next.no}</span>

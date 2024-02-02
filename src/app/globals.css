@@ -27,13 +27,9 @@ body {
 }
 
 .link {
-  color: rgb(156 163 175);
-  &:hover {
-    color: rgb(81, 68, 55);
-  }
-  transition: select-none;
   opacity: 0.5;
-  font-size: x-small;
+  transition: 0.3s all ease-in-out;
+  display: block;
 }
 
 .centered {
