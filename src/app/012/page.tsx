@@ -2,7 +2,7 @@
  * @Author: luckin 1832114807@qq.com
  * @Date: 2024-01-17 15:31:29
  * @LastEditors: luckin 1832114807@qq.com
- * @LastEditTime: 2024-02-01 12:10:44
+ * @LastEditTime: 2024-02-03 18:27:28
  * @FilePath: \react-100\src\app\012\page.tsx
  * @Description: 
  * 
@@ -25,9 +25,10 @@ export default function App() {
     const speeds = ['x0.5', 'x1', 'x2']
     const [speedLevel, setSpeedLevel] = useState('x1')
     const frame = useRef(() => { })
-    const [wireFrame, setWireFrame] = useState(true)
+    const wireFrame = useRef<boolean>(true)
     const colors = useRef<string[]>([])
 
+    // color effect
     useEffect(() => {
         const colorPresets = [
             ['#444444', '#ffffff'],
@@ -36,7 +37,10 @@ export default function App() {
             ['#1E88A8', '#eefefd'],
         ]
         colors.current = shuffle(pick(colorPresets))
+    }, [])
 
+    const ts = timestamp() + 1000
+    useEffect(() => {
         const canvas = el.current!
         const { ctx, dpi, remove } = initCanvas(canvas, 500, 500)
         const { width, height } = canvas
@@ -55,7 +59,7 @@ export default function App() {
             vec.slice(1).forEach(v => ctx.lineTo(...v))
             ctx.lineTo(...vec[0])
 
-            if (wireFrame) {
+            if (wireFrame.current) {
                 ctx.stroke()
             } else {
                 ctx.fill()
@@ -115,14 +119,13 @@ export default function App() {
         }
 
         // draw in every frame 
-        const ts = timestamp() + 1000
-        const duration = speedLevel === 'x0.5'
-            ? 2400
-            : speedLevel === 'x1'
-                ? 1200
-                : 600
 
         frame.current = () => {
+            const duration = speedLevel === 'x0.5'
+                ? 2400
+                : speedLevel === 'x1'
+                    ? 1200
+                    : 600
             ctx.clearRect(0, 0, width, height)
 
             ctx.strokeStyle = 'black'
@@ -139,7 +142,7 @@ export default function App() {
 
             if (turn) {
                 // draw diamond
-                if (!wireFrame) {
+                if (!wireFrame.current) {
                     ctx.rect(0, 0, width, height)
                     ctx.fillStyle = colors.current[1]
                     ctx.fill()
@@ -154,7 +157,7 @@ export default function App() {
 
             } else {
                 // draw squares
-                if (!wireFrame) {
+                if (!wireFrame.current) {
                     ctx.rect(0, 0, width, height)
                     ctx.fillStyle = colors.current[0]
                     ctx.fill()
@@ -170,7 +173,8 @@ export default function App() {
                 drawSquares(h, v)
             }
         }
-    }, [speedLevel, wireFrame])
+    }, [speedLevel, ts])
+
 
     const { pause, resume } = useRafFn(frame.current, true, { immediate: true })
 
@@ -192,10 +196,8 @@ export default function App() {
                     <canvas ref={el} className={canvasClass}>
                     </canvas>
                     <button onClick={() => {
-                        setWireFrame(!wireFrame)
+                        wireFrame.current = !wireFrame.current
                         setSpeedLevel(speeds[0])
-                        // @ts-ignore
-                        turnRef.current!.reset()
                     }
                     }
                     >wireFrame</button>
