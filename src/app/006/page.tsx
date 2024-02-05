@@ -2,23 +2,25 @@
  * @Author: luckin 1832114807@qq.com
  * @Date: 2023-12-28 09:18:25
  * @LastEditors: luckin 1832114807@qq.com
- * @LastEditTime: 2024-01-06 10:06:51
+ * @LastEditTime: 2024-02-05 13:32:58
  * @FilePath: \react-100\src\app\006\page.tsx
  * @Description: 
  * 
  * Copyright (c) 2023 by ${git_name_email}, All Rights Reserved. 
  */
 'use client'
-import { useRef, useState } from 'react'
-import { useWindowSize, useWindowPosition } from '../Hooks'
+import { useRef, useState, useEffect } from 'react'
+import { useWindowPosition } from '../Hooks'
+import useWindowSize from '../Hooks/useWindowSIze/index'
 import { useMouse, useThrottleFn } from 'ahooks';
 import Paper from "../components/paper"
 import Note from "../components/note"
+import { defaultWindow } from '../utils/shared';
 
-const isClient = typeof window !== "undefined";
-const defaultWindow = isClient ? window : void 0;
-
+// TODO: refactor
 export default function DragBox(window: any = defaultWindow) {
+    
+    
     // TODO: Did not achieve expected results
     // because i am not familiat to the base concept of react.
     // mount window 
@@ -49,21 +51,17 @@ export default function DragBox(window: any = defaultWindow) {
         run()
     }
 
-    // const [innerX, setInnerX] = useState(0)
-    // const [innerY, setInnerY] = useState(0)
     type InnerPositionType = {
         x: number,
         y: number
     }
     const [innerPosition, setInnerPosition] = useState<InnerPositionType>({ x: 0, y: 0 })
-    const { run: updatePosition } = useThrottleFn(() => {
+
+    useEffect(() => {
         const boxX = Math.min(Math.max(0, initBoxX.current - draggingOffsets[0]), width - BOX_SIZE)
         const boxY = Math.min(Math.max(0, initBoxY.current - draggingOffsets[1]), height - BOX_SIZE)
-        // setInnerX(-(boxX + screenTop))
-        // setInnerY(-(boxY + screenLeft))
         setInnerPosition({ x: -(boxX + screenTop), y: -(boxY + screenLeft) })
-    }, { wait: 50 })
-    updatePosition()
+    }, [draggingOffsets, width, height, screenTop, screenLeft])
 
     return (
         <>

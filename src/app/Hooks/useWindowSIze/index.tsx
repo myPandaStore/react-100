@@ -2,20 +2,20 @@
  * @Author: luckin 1832114807@qq.com
  * @Date: 2023-12-29 10:39:42
  * @LastEditors: luckin 1832114807@qq.com
- * @LastEditTime: 2024-01-14 15:03:02
- * @FilePath: \react-100\src\app\Hooks\useWindowSize.tsx
+ * @LastEditTime: 2024-02-05 13:35:06
+ * @FilePath: \react-100\src\app\Hooks\useWindowSIze\index.tsx
  * @Description: 
  * 
  * Copyright (c) 2023 by ${git_name_email}, All Rights Reserved. 
  */
 'use client'
 import { useState, useEffect } from 'react';
-const isClient = typeof window !== "undefined";
-const defaultWindow = isClient ? window : void 0;
+import type UseWindowSize from './type';
+import { defaultWindow } from '@/app/utils/shared';
 
-export default function useWindowSize(window: any = defaultWindow) {
-    const [width, setWidth] = useState<number>(window?.innerWidth);
-    const [height, setHeight] = useState<number>(window?.innerHeight);
+const useWindowSize: UseWindowSize = (window = defaultWindow) => {
+    const [width, setWidth] = useState<number>(window.innerWidth);
+    const [height, setHeight] = useState<number>(window.innerHeight);
 
     useEffect(() => {
         const update = () => {
@@ -33,3 +33,5 @@ export default function useWindowSize(window: any = defaultWindow) {
 
     return { width, height };
 }
+
+export default useWindowSize
