@@ -2,7 +2,7 @@
  * @Author: luckin 1832114807@qq.com
  * @Date: 2023-12-29 10:39:42
  * @LastEditors: luckin 1832114807@qq.com
- * @LastEditTime: 2024-02-05 13:35:06
+ * @LastEditTime: 2024-02-05 14:41:14
  * @FilePath: \react-100\src\app\Hooks\useWindowSIze\index.tsx
  * @Description: 
  * 
@@ -14,8 +14,8 @@ import type UseWindowSize from './type';
 import { defaultWindow } from '@/app/utils/shared';
 
 const useWindowSize: UseWindowSize = (window = defaultWindow) => {
-    const [width, setWidth] = useState<number>(window.innerWidth);
-    const [height, setHeight] = useState<number>(window.innerHeight);
+    const [width, setWidth] = useState<number>(window?.innerWidth || 0);
+    const [height, setHeight] = useState<number>(window?.innerHeight || 0);
 
     useEffect(() => {
         const update = () => {
@@ -25,9 +25,9 @@ const useWindowSize: UseWindowSize = (window = defaultWindow) => {
             }
         };
 
-        window.addEventListener('resize', update)
+        window?.addEventListener('resize', update)
         return () => {
-            window.removeEventListener('resize', update)
+            window?.removeEventListener('resize', update)
         }
     }, [window])
 
