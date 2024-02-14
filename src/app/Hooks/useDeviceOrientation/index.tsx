@@ -2,21 +2,17 @@
  * @Author: luckin 1832114807@qq.com
  * @Date: 2024-01-15 10:24:21
  * @LastEditors: luckin 1832114807@qq.com
- * @LastEditTime: 2024-01-17 10:46:10
- * @FilePath: \react-100\src\app\Hooks\useDeviceOrientation.tsx
+ * @LastEditTime: 2024-02-14 14:50:11
+ * @FilePath: \react-100\src\app\Hooks\useDeviceOrientation\index.tsx
  * @Description: 
  * 
  * Copyright (c) 2024 by ${git_name_email}, All Rights Reserved. 
  */
 import { useState, useEffect, useDebugValue } from "react";
+import type { UseDeviceOrientation, ConfigurableWindow, OrientationType } from './type'
+import { defaultWindow } from "@/app/utils/shared";
 
-const isClient = typeof window !== "undefined";
-const defaultWindow = isClient ? window : void 0;
-interface ConfigurableWindow {
-    window?: Window;
-}
-type OrientationType = number | null
-export default function useDeviceOrientation(options: ConfigurableWindow = {}) {
+const useDeviceOrientation: UseDeviceOrientation = (options: ConfigurableWindow = {}) => {
     const { window = defaultWindow } = options;
     const isSupported = Boolean(window && "DeviceOrientationEvent" in window);
     const [isAbsolute, setIsAbsolute] = useState(false);
@@ -44,3 +40,5 @@ export default function useDeviceOrientation(options: ConfigurableWindow = {}) {
         gamma
     };
 }
+
+export default useDeviceOrientation;

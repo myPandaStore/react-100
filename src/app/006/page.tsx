@@ -2,7 +2,7 @@
  * @Author: luckin 1832114807@qq.com
  * @Date: 2023-12-28 09:18:25
  * @LastEditors: luckin 1832114807@qq.com
- * @LastEditTime: 2024-02-05 13:32:58
+ * @LastEditTime: 2024-02-14 15:14:34
  * @FilePath: \react-100\src\app\006\page.tsx
  * @Description: 
  * 
@@ -10,7 +10,7 @@
  */
 'use client'
 import { useRef, useState, useEffect } from 'react'
-import { useWindowPosition } from '../Hooks'
+import useWindowPosition from '../Hooks/useWindowPosition'
 import useWindowSize from '../Hooks/useWindowSIze/index'
 import { useMouse, useThrottleFn } from 'ahooks';
 import Paper from "../components/paper"
@@ -19,8 +19,8 @@ import { defaultWindow } from '../utils/shared';
 
 // TODO: refactor
 export default function DragBox(window: any = defaultWindow) {
-    
-    
+
+
     // TODO: Did not achieve expected results
     // because i am not familiat to the base concept of react.
     // mount window 

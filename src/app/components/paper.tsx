@@ -2,7 +2,7 @@
  * @Author: luckin 1832114807@qq.com
  * @Date: 2023-12-15 20:22:11
  * @LastEditors: luckin 1832114807@qq.com
- * @LastEditTime: 2024-02-02 18:36:27
+ * @LastEditTime: 2024-02-14 15:22:41
  * @FilePath: \react-100\src\app\components\paper.tsx
  * @Description: 
  * 
@@ -14,7 +14,7 @@ import Link from 'next/link'
 import { works } from '../works'
 import { usePathname } from 'next/navigation';
 import { useState } from 'react';
-import { useTitle, } from '../Hooks/index';
+import useTitle from '../Hooks/useTitle';
 import ClassNames from 'classnames';
 
 export default function Paper({ children }: { children: JSX.Element }) {

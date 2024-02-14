@@ -8,6 +8,6 @@
  * 
  * Copyright (c) 2024 by ${git_name_email}, All Rights Reserved. 
  */
-type UseWindowSize = (Window?: (Window & typeof globalThis) | undefined) => { width: number, height: number }
+type UseWindowSize = (window?: (Window & typeof globalThis) | undefined) => { width: number, height: number }
 
 export default UseWindowSize

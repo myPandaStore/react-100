@@ -2,7 +2,7 @@
  * @Author: luckin 1832114807@qq.com
  * @Date: 2024-01-14 20:02:12
  * @LastEditors: luckin 1832114807@qq.com
- * @LastEditTime: 2024-01-15 15:49:29
+ * @LastEditTime: 2024-02-14 14:38:51
  * @FilePath: \react-100\src\app\011\page.tsx
  * @Description: 
  * 
@@ -10,7 +10,7 @@
  */
 'use client'
 import { useSearchParams } from 'next/navigation'
-import { useDeviceOrientation } from '../Hooks'
+import  useDeviceOrientation  from '../Hooks/useDeviceOrientation'
 import Paper from '../components/paper'
 import Note from '../components/note'
 
