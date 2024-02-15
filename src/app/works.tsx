@@ -2,7 +2,7 @@
  * @Author: luckin 1832114807@qq.com
  * @Date: 2023-12-02 15:37:03
  * @LastEditors: luckin 1832114807@qq.com
- * @LastEditTime: 2024-02-01 10:06:40
+ * @LastEditTime: 2024-02-15 10:18:38
  * @FilePath: \react-100\src\app\works.tsx
  * @Description: 
  * 
@@ -112,6 +112,11 @@ export const info = [
     name: 'Gravity',
     date: '2/3',
     draft: true,
+  },
+  {
+    name: 'Field 1',
+    date: '2/15',
+    draft: true
   }
 ]
 
