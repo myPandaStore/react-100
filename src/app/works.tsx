@@ -2,7 +2,7 @@
  * @Author: luckin 1832114807@qq.com
  * @Date: 2023-12-02 15:37:03
  * @LastEditors: luckin 1832114807@qq.com
- * @LastEditTime: 2024-02-17 15:03:09
+ * @LastEditTime: 2024-02-25 20:15:53
  * @FilePath: \react-100\src\app\works.tsx
  * @Description: 
  * 
@@ -125,6 +125,10 @@ export const info = [
   {
     name: 'Clone',
     date: '2/17'
+  },
+  {
+    name: 'Cross',
+    date: '2/25'
   }
 ]
 
