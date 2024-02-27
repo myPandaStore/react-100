@@ -2,7 +2,7 @@
  * @Author: luckin 1832114807@qq.com
  * @Date: 2023-12-22 10:37:07
  * @LastEditors: luckin 1832114807@qq.com
- * @LastEditTime: 2024-01-24 10:07:41
+ * @LastEditTime: 2024-02-27 20:54:32
  * @FilePath: \react-100\src\app\utils\vector.tsx
  * @Description: 
  * 
@@ -39,4 +39,12 @@ export function polar2cart(x = 0, y = 0, r = 0, theta = 0) {
     const dx = r * Math.cos(theta)
     const dy = r * Math.sin(theta)
     return [x + dx, y + dy]
+}
+
+export function square(a: number) {
+    return a ** 2
+}
+
+export function distance([x1, y1]: Vector, [x2, y2]: Vector) {
+    return Math.sqrt(square(x1 - x2) + square(y1 - y2))
 }
