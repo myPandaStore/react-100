@@ -2,7 +2,7 @@
  * @Author: luckin 1832114807@qq.com
  * @Date: 2023-12-22 10:37:07
  * @LastEditors: luckin 1832114807@qq.com
- * @LastEditTime: 2024-02-27 20:54:32
+ * @LastEditTime: 2024-02-28 21:56:00
  * @FilePath: \react-100\src\app\utils\vector.tsx
  * @Description: 
  * 
@@ -47,4 +47,12 @@ export function square(a: number) {
 
 export function distance([x1, y1]: Vector, [x2, y2]: Vector) {
     return Math.sqrt(square(x1 - x2) + square(y1 - y2))
+}
+
+export function addVec([x1, y1]: Vector, [x2, y2]: Vector): Vector {
+    return [x1 + x2, y1 + y2]
+}
+
+export function vec2mat([x, y]: Vector) {
+    return { x, y }
 }
