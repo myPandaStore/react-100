@@ -2,7 +2,7 @@
  * @Author: luckin 1832114807@qq.com
  * @Date: 2023-12-02 15:37:03
  * @LastEditors: luckin 1832114807@qq.com
- * @LastEditTime: 2024-02-29 20:41:47
+ * @LastEditTime: 2024-03-01 20:11:32
  * @FilePath: \react-100\src\app\works.tsx
  * @Description: 
  * 
@@ -137,7 +137,12 @@ export const info = [
   {
     name: 'Knitting',
     date: '2/29'
+  },
+  {
+    name: 'Cast',
+    date: '3/1'
   }
+
 ]
 
 export const works = info.map((info, idx) => {
