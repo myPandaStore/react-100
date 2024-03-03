@@ -2,7 +2,7 @@
  * @Author: luckin 1832114807@qq.com
  * @Date: 2023-12-02 15:37:03
  * @LastEditors: luckin 1832114807@qq.com
- * @LastEditTime: 2024-03-01 20:11:32
+ * @LastEditTime: 2024-03-03 10:48:18
  * @FilePath: \react-100\src\app\works.tsx
  * @Description: 
  * 
@@ -141,7 +141,11 @@ export const info = [
   {
     name: 'Cast',
     date: '3/1'
+  }, {
+    name: 'Kaleidoscope',
+    date: "3/3"
   }
+
 
 ]
 
