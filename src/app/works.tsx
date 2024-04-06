@@ -2,7 +2,7 @@
  * @Author: luckin 1832114807@qq.com
  * @Date: 2023-12-02 15:37:03
  * @LastEditors: luckin 1832114807@qq.com
- * @LastEditTime: 2024-03-03 10:48:18
+ * @LastEditTime: 2024-03-04 20:43:18
  * @FilePath: \react-100\src\app\works.tsx
  * @Description: 
  * 
@@ -144,6 +144,10 @@ export const info = [
   }, {
     name: 'Kaleidoscope',
     date: "3/3"
+  },
+  {
+    name:'mini-react',
+    date:'3/4'
   }
 
 
