@@ -2,7 +2,7 @@
  * @Author: luckin 1832114807@qq.com
  * @Date: 2024-04-06 10:18:32
  * @LastEditors: luckin 1832114807@qq.com
- * @LastEditTime: 2024-04-06 10:52:46
+ * @LastEditTime: 2024-04-06 11:33:21
  * @FilePath: \react-100\src\app\031\page.tsx
  * @Description: 
  * 
@@ -17,8 +17,44 @@ import Note from "../components/note"
 import { distance, } from '../utils'
 import { r60, SQRT_3 } from "../utils/vector"
 
-const { createCanvas, background, strokeWeight, map, stroke, push, translate, pop, line, rotate, fill, noStroke, mount, unmount } = p5i()
 const { abs, atan2, min } = Math
+
+// 处理 node_modules\p5\lib\p5.min.js (2:428474) @ window
+//  ReferenceError: window is not defined
+let myCreateCanvas: P5I['createCanvas'],
+    myBackground: P5I['background'],
+    myStrokeWeight: P5I['strokeWeight'],
+    myMap: P5I['map'],
+    myStroke: P5I['stroke'],
+    myPush: P5I['push'],
+    myTranslate: P5I['translate'],
+    myLine: P5I['line'],
+    myRotate: P5I['rotate'],
+    myFill: P5I['fill'],
+    myNoStroke: P5I['noStroke'],
+    myPop: P5I['pop'],
+    myMount: P5I['mount'],
+    myUnmount: P5I['unmount']
+if (typeof window !== 'undefined') {
+    console.log('window is defined')
+    let { createCanvas, background, strokeWeight, map, stroke, push, translate, pop, line, rotate, fill, noStroke, mount, unmount } = p5i()
+    myCreateCanvas = createCanvas
+    myBackground = background
+    myStrokeWeight = strokeWeight
+    myMap = map
+    myStroke = stroke
+    myPush = push
+    myTranslate = translate
+    myLine = line
+    myRotate = rotate
+    myFill = fill
+    myNoStroke = noStroke
+    myPop = pop
+    myMount = mount
+    myUnmount = unmount
+} else {
+    console.log('window is undefined')
+}
 
 export default function Lines() {
     const el = useRef<HTMLDivElement | null>(null)
@@ -26,11 +62,11 @@ export default function Lines() {
         const h = 400
         const w = 400
         function setup() {
-            createCanvas(w, h)
+            myCreateCanvas(w, h)
         }
 
         function draw({ mouseX, mouseY }: P5I) {
-            background('transparent')
+            myBackground('transparent')
 
             const columns = 30
             const rows = 30
@@ -67,36 +103,38 @@ export default function Lines() {
                     const deltaThreshold = 40
 
                     theta += r60 * gravity
-                    
+
                     const strokeWidth = 2
-                    strokeWeight(strokeWidth)
-                    stroke(100)
+                    myStrokeWeight(strokeWidth)
+                    myStroke(100)
 
                     if (abs(delta.x) < deltaThreshold && abs(delta.y) < deltaThreshold) {
                         const amt = (abs(delta.x) + abs(delta.y)) / 2
-                        const amtMapped = map(amt, 0, deltaThreshold, -50, 255)
-                        stroke(100, amtMapped)
+                        const amtMapped = myMap(amt, 0, deltaThreshold, -50, 255)
+                        myStroke(100, amtMapped)
                     }
 
-                    push()
-                    translate(currentOffset.x, currentOffset.y)
-                    rotate(theta)
+                    myPush()
+                    myTranslate(currentOffset.x, currentOffset.y)
+                    myRotate(theta)
 
-                    line(0, 0, length, 0)
-                    pop()
+                    myLine(0, 0, length, 0)
+                    myPop()
 
-                    fill(250, 150, 0)
-                    noStroke()
+                    myFill(250, 150, 0)
+                    myNoStroke()
                 }
             }
         }
-        
-        mount(el.current as HTMLDivElement, { setup, draw })
 
-        return ()=>{
-            unmount()
+        myMount(el.current as HTMLDivElement, { setup, draw })
+
+        return () => {
+            myUnmount()
         }
-    }, [])
+    },[])
+
+
 
     return (
         <>
