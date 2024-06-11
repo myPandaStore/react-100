@@ -1,9 +1,9 @@
 /*
  * @Author: luckin 1832114807@qq.com
  * @Date: 2024-04-07 15:18:19
- * @LastEditors: luckin 1832114807@qq.com
- * @LastEditTime: 2024-04-07 15:54:43
- * @FilePath: \react-100\src\app\032\page.tsx
+ * @LastEditors: luckin yipeng.zhang@kunlun-inc.com
+ * @LastEditTime: 2024-06-11 14:21:48
+ * @FilePath: /react-100/src/app/032/page.tsx
  * @Description: 
  * 
  * Copyright (c) 2024 by ${git_name_email}, All Rights Reserved. 
@@ -70,7 +70,8 @@ if (typeof window !== 'undefined') {
 export default function LineToCircle() {
     const el = useRef<HTMLDivElement | null>(null)
 
-    useEffect(() => {
+    useEffect(() => { 
+        console.log('0')
         const w = 800
         const h = 800
 
