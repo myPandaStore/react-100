@@ -1,9 +1,9 @@
 /*
  * @Author: luckin 1832114807@qq.com
  * @Date: 2023-12-02 15:37:03
- * @LastEditors: luckin 1832114807@qq.com
- * @LastEditTime: 2024-04-07 15:17:59
- * @FilePath: \react-100\src\app\works.tsx
+ * @LastEditors: luckin yipeng.zhang@kunlun-inc.com
+ * @LastEditTime: 2024-06-11 10:42:58
+ * @FilePath: /react-100/src/app/works.tsx
  * @Description: 
  * 
  * Copyright (c) 2023 by ${git_name_email}, All Rights Reserved. 
@@ -156,6 +156,10 @@ export const info = [
   {
     name:'Flat',
     date:'4/7'
+  },
+  {
+    name:'Attractor',
+    date:'6/11'
   }
 
 ]
