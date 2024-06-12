@@ -2,7 +2,7 @@
  * @Author: luckin 1832114807@qq.com
  * @Date: 2023-12-02 15:37:03
  * @LastEditors: luckin yipeng.zhang@kunlun-inc.com
- * @LastEditTime: 2024-06-11 14:56:51
+ * @LastEditTime: 2024-06-11 17:47:41
  * @FilePath: /react-100/src/app/works.tsx
  * @Description: 
  * 
@@ -146,22 +146,25 @@ export const info = [
     date: "3/3"
   },
   {
-    name:'mini-react',
-    date:'3/4'
+    name: 'mini-react',
+    date: '3/4'
   },
   {
-    name:'Lines',
-    date:'4/6'
+    name: 'Lines',
+    date: '4/6'
   },
   {
-    name:'Flat',
-    date:'4/7'
+    name: 'Flat',
+    date: '4/7'
   },
   {
-    name:'Attractor',
-    date:'6/11'
-  }
-
+    name: 'Attractor',
+    date: '6/11'
+  },
+  {
+    name: 'River',
+    date: '6/11'
+  },
 ]
 
 export const works = info.map((info, idx) => {
