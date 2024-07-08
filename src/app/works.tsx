@@ -146,20 +146,20 @@ export const info = [
     date: "3/3"
   },
   {
-    name:'mini-react',
-    date:'3/4'
+    name: 'mini-react',
+    date: '3/4'
   },
   {
-    name:'Lines',
-    date:'4/6'
+    name: 'Lines',
+    date: '4/6'
   },
   {
-    name:'Flat',
-    date:'4/7'
+    name: 'Flat',
+    date: '4/7'
   },
   {
-    name:'Attractor',
-    date:'6/11'
+    name: 'Attractor',
+    date: '6/11'
   }
 
 ]
