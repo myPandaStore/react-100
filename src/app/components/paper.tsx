@@ -1,9 +1,9 @@
 /*
  * @Author: luckin 1832114807@qq.com
  * @Date: 2023-12-15 20:22:11
- * @LastEditors: luckin 1832114807@qq.com
- * @LastEditTime: 2024-02-14 15:22:41
- * @FilePath: \react-100\src\app\components\paper.tsx
+ * @LastEditors: luckin yipeng.zhang@kunlun-inc.com
+ * @LastEditTime: 2024-07-10 22:33:58
+ * @FilePath: /react-100/src/app/components/paper.tsx
  * @Description: 
  * 
  * Copyright (c) 2023 by ${git_name_email}, All Rights Reserved. 
@@ -50,7 +50,7 @@ export default function Paper({ children }: { children: JSX.Element }) {
         setNextHovered(false);
     }
 
-    const bottomNavClass = 'z-10 bottom-nav fixed bottom-0 pl-10 '
+    const bottomNavClass = 'z-10 bottom-nav fixed bottom-0 pl-10 text-black'
 
     const preClass = ClassNames('pre opacity-0', { 'link': isHovered }, { '!opacity-100': preHovered },)
     const nextClass = ClassNames('next opacity-0', { 'link': isHovered }, { '!opacity-100': nextHovered, })
@@ -62,7 +62,7 @@ export default function Paper({ children }: { children: JSX.Element }) {
 
     return (
         <div className="paper w-full" style={{ background: 'white' }}>
-            <div className="nav cursor-pointer pl-10">
+            <div className="nav cursor-pointer pl-10 text-black">
                 <Link href={'/'}>
                     &lt;
                 </Link>
