@@ -2,7 +2,7 @@
  * @Author: luckin 1832114807@qq.com
  * @Date: 2023-12-02 15:37:03
  * @LastEditors: luckin yipeng.zhang@kunlun-inc.com
- * @LastEditTime: 2024-06-11 14:56:51
+ * @LastEditTime: 2024-07-10 22:36:36
  * @FilePath: /react-100/src/app/works.tsx
  * @Description: 
  * 
@@ -160,6 +160,9 @@ export const info = [
   {
     name: 'Attractor',
     date: '6/11'
+  }, {
+    name: 'River',
+    date: '7/10'
   }
 
 ]
